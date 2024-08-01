@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.ammon0020.github.io/sitemap-index.xml
+Host: https://www.ammon0020.github.io
