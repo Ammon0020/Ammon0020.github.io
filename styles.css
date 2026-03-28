@@ -1309,6 +1309,133 @@ img { max-width: 100%; display: block; }
 }
 
 /* ═══════════════════════════════════════════════════════════
+   VIEW ALL TILE (shared between projects & gallery)
+   ═══════════════════════════════════════════════════════════ */
+.view-all-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: var(--bg-card);
+  border: 1px dashed var(--accent-dim);
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition);
+  min-height: 200px;
+  padding: 2rem;
+}
+
+.view-all-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, var(--accent-dim) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.view-all-tile:hover {
+  background: var(--bg-subtle);
+  border-color: var(--accent-mid);
+  border-style: solid;
+  box-shadow: inset 0 0 40px var(--accent-dim), 0 0 30px rgba(57, 255, 20, 0.06);
+  text-shadow: none;
+}
+
+.view-all-tile:hover::before {
+  opacity: 1;
+}
+
+.view-all-icon {
+  font-size: 1.6rem;
+  color: var(--accent);
+  opacity: 0.4;
+  transition: opacity var(--transition), text-shadow var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.view-all-tile:hover .view-all-icon {
+  opacity: 1;
+  text-shadow: 0 0 12px var(--accent-mid);
+}
+
+.view-all-label {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--accent);
+  transition: text-shadow var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.view-all-tile:hover .view-all-label {
+  text-shadow: 0 0 12px var(--accent-mid), 0 0 25px var(--accent-dim);
+  animation: text-flicker 0.15s ease-in-out;
+}
+
+.view-all-count {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  position: relative;
+  z-index: 1;
+}
+
+/* Gallery variant: square aspect ratio */
+.view-all-tile--gallery {
+  aspect-ratio: 1;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ARCHIVE PAGES
+   ═══════════════════════════════════════════════════════════ */
+.archive-header {
+  padding-top: 8rem;
+}
+
+.archive-header .section-header h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 400;
+  color: var(--text-bright);
+  letter-spacing: 0.06em;
+}
+
+.archive-back {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px dashed var(--border);
+  transition: color var(--transition), border-color var(--transition), text-shadow var(--transition);
+}
+
+.archive-back:hover {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+  text-shadow: 0 0 8px var(--accent-dim);
+}
+
+.archive-subtitle {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+  margin-top: -1.5rem;
+}
+
+/* ═══════════════════════════════════════════════════════════
    FOOTER
    ═══════════════════════════════════════════════════════════ */
 .footer {

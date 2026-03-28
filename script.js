@@ -36,6 +36,8 @@
 
   // ─── BOOT SEQUENCE ───
   function runBootSequence() {
+    if (!heroMain || !heroName || bootLines.length === 0) return;
+
     bootLines.forEach((line) => {
       const delay = parseInt(line.dataset.delay, 10) || 0;
       setTimeout(() => {
@@ -299,29 +301,34 @@
 
   // ─── LIGHTBOX ───
   function closeLightbox() {
+    if (!lightbox) return;
     lightbox.classList.remove('active');
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     lightboxImg.src = '';
   }
 
-  lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxClose) {
+    lightboxClose.addEventListener('click', closeLightbox);
+  }
 
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
-  });
+  if (lightbox) {
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox();
+      }
+    });
+  }
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
-      if (lightbox.classList.contains('active')) {
+      if (lightbox && lightbox.classList.contains('active')) {
         closeLightbox();
       }
       // Also close gallery captions on Escape
       galleryItems.forEach(gi => gi.classList.remove('captioned'));
       // Close work panel on Escape
-      if (workPanel.classList.contains('active')) {
+      if (workPanel && workPanel.classList.contains('active')) {
         closeWorkPanel();
       }
       // Close active cap desc on Escape

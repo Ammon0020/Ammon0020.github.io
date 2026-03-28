@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Archive — Ammon Richards</title>
+  <meta name="description" content="Full photo archive of Ammon Richards — architecture, hardware, landscapes, and creative photography.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="nav" id="nav">
+    <div class="nav-glow"></div>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">AR://</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="index.html#about" data-index="01">ABOUT</a></li>
+        <li><a href="index.html#projects" data-index="02">PROJECTS</a></li>
+        <li><a href="index.html#capabilities" data-index="03">CAPABILITIES</a></li>
+        <li><a href="index.html#gallery" data-index="04">GALLERY</a></li>
+        <li><a href="index.html#contact" data-index="05">CONTACT</a></li>
+        <li><a href="https://buymeacoffee.com" class="nav-coffee" target="_blank" rel="noopener">☕ BUY ME A COFFEE</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ═══ ARCHIVE HEADER ═══ -->
+  <section class="section archive-header" id="archive-header">
+    <div class="section-grid"></div>
+    <div class="container reveal">
+      <a href="index.html" class="archive-back">&lt; RETURN HOME</a>
+      <div class="section-header">
+        <span class="section-index">04</span>
+        <h1>PHOTO ARCHIVE</h1>
+        <span class="section-line"></span>
+      </div>
+      <p class="archive-subtitle">Complete collection — architecture, hardware, landscapes, and everything in between.</p>
+    </div>
+  </section>
+
+  <!-- ═══ ALL GALLERY ═══ -->
+  <section class="section gallery" id="gallery">
+    <div class="section-grid"></div>
+    <div class="container">
+      <div class="gallery-grid">
+        <div class="gallery-item reveal" tabindex="0" data-caption="Urban geometry — converging lines and negative space in downtown architecture.">
+          <div class="gallery-placeholder"><span>[ PHOTO 01 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Urban geometry — converging lines and negative space in downtown architecture.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Custom PCB fresh from the reflow oven — traces and solder joints catching the light.">
+          <div class="gallery-placeholder"><span>[ PHOTO 02 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Custom PCB fresh from the reflow oven — traces and solder joints catching the light.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Golden hour concrete — the interplay of warm light and brutalist texture.">
+          <div class="gallery-placeholder"><span>[ PHOTO 03 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Golden hour concrete — the interplay of warm light and brutalist texture.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="3D-printed router enclosure — first prototype with integrated cable management.">
+          <div class="gallery-placeholder"><span>[ PHOTO 04 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">3D-printed router enclosure — first prototype with integrated cable management.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Server rack detail — color-coded patch cables and cable management in a home lab.">
+          <div class="gallery-placeholder"><span>[ PHOTO 05 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Server rack detail — color-coded patch cables and cable management in a home lab.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Reflection study — glass and steel facade fragmenting the cityscape.">
+          <div class="gallery-placeholder"><span>[ PHOTO 06 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Reflection study — glass and steel facade fragmenting the cityscape.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Workstation build in progress — custom loop cooling and cable routing.">
+          <div class="gallery-placeholder"><span>[ PHOTO 07 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Workstation build in progress — custom loop cooling and cable routing.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Morning fog — minimal landscape with layered depth and muted tones.">
+          <div class="gallery-placeholder"><span>[ PHOTO 08 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Morning fog — minimal landscape with layered depth and muted tones.</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal" tabindex="0" data-caption="Flight sim controller — the finished build with custom 3D-printed housing and PCB.">
+          <div class="gallery-placeholder"><span>[ PHOTO 09 ]</span></div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">Flight sim controller — the finished build with custom 3D-printed housing and PCB.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-hidden="true">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">✕</button>
+    <div class="lightbox-content">
+      <img src="" alt="" id="lightbox-img" class="lightbox-img">
+    </div>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <span class="footer-text">© 2026 AMMON RICHARDS — ALL SYSTEMS NOMINAL</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
