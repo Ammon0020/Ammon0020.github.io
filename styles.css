@@ -176,8 +176,8 @@ img { max-width: 100%; display: block; }
 
 /* ─── Buy Me a Coffee button ─── */
 .nav-coffee {
-  color: var(--warm) !important;
-  border: 1px solid var(--warm-mid);
+  color: var(--accent) !important;
+  border: 1px solid var(--accent-mid);
   padding: 0.35rem 1rem !important;
   font-size: 0.7rem !important;
   font-weight: 600 !important;
@@ -187,22 +187,33 @@ img { max-width: 100%; display: block; }
   position: relative;
   overflow: hidden;
   white-space: nowrap;
+  animation: coffee-pulse 2s ease-in-out infinite;
+}
+
+@keyframes coffee-pulse {
+  0%, 100% {
+    box-shadow: 0 0 4px var(--accent-dim), 0 0 8px rgba(57, 255, 20, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 12px var(--accent-mid), 0 0 24px var(--accent-dim), inset 0 0 8px rgba(57, 255, 20, 0.08);
+  }
 }
 
 .nav-coffee::before {
   content: '' !important;
   position: absolute;
   inset: 0;
-  background: var(--warm-dim);
+  background: var(--accent-dim);
   opacity: 0;
   transition: opacity var(--transition);
 }
 
 .nav-coffee:hover {
   color: var(--text-bright) !important;
-  border-color: var(--warm) !important;
-  text-shadow: 0 0 12px var(--warm-glow) !important;
-  box-shadow: 0 0 20px var(--warm-dim), inset 0 0 20px var(--warm-dim);
+  border-color: var(--accent) !important;
+  text-shadow: 0 0 12px var(--accent-mid) !important;
+  box-shadow: 0 0 20px var(--accent-dim), inset 0 0 20px var(--accent-dim);
+  animation: none;
 }
 
 .nav-coffee:hover::before {
