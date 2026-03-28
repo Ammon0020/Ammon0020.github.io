@@ -14,6 +14,10 @@
   --accent:     #39FF14;
   --accent-dim: rgba(57, 255, 20, 0.15);
   --accent-mid: rgba(57, 255, 20, 0.4);
+  --warm:       #8B1A1A;
+  --warm-dim:   rgba(139, 26, 26, 0.2);
+  --warm-mid:   rgba(139, 26, 26, 0.5);
+  --warm-glow:  rgba(139, 26, 26, 0.35);
   --text:       #d4d4c8;
   --text-dim:   #6b6b60;
   --text-bright:#f0f0e8;
@@ -95,12 +99,12 @@ img { max-width: 100%; display: block; }
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--accent-dim) 20%,
-    var(--accent) 50%,
-    var(--accent-dim) 80%,
+    var(--warm-dim) 20%,
+    var(--warm) 50%,
+    var(--warm-dim) 80%,
     transparent 100%
   );
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .nav-inner {
@@ -461,8 +465,8 @@ img { max-width: 100%; display: block; }
 }
 
 .project-card:hover::before {
-  border-color: var(--accent);
-  box-shadow: inset 0 0 20px var(--accent-dim), 0 0 30px var(--accent-dim);
+  border-color: var(--warm);
+  box-shadow: inset 0 0 20px var(--warm-dim), 0 0 30px var(--warm-dim);
 }
 
 .project-img {
@@ -624,10 +628,11 @@ img { max-width: 100%; display: block; }
 .blink-dot {
   width: 8px;
   height: 8px;
-  background: var(--accent);
+  background: var(--warm);
   display: inline-block;
   animation: blink 1.5s step-end infinite;
   flex-shrink: 0;
+  box-shadow: 0 0 6px var(--warm-glow);
 }
 
 .contact-line {
@@ -659,7 +664,7 @@ img { max-width: 100%; display: block; }
 .status-dot {
   width: 6px;
   height: 6px;
-  background: var(--accent);
+  background: var(--warm);
   display: inline-block;
   animation: pulse-glow 2s ease-in-out infinite;
   flex-shrink: 0;
@@ -668,11 +673,11 @@ img { max-width: 100%; display: block; }
 @keyframes pulse-glow {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 4px var(--accent);
+    box-shadow: 0 0 4px var(--warm);
   }
   50% {
     opacity: 0.4;
-    box-shadow: 0 0 12px var(--accent);
+    box-shadow: 0 0 12px var(--warm);
   }
 }
 
@@ -709,20 +714,21 @@ body::before {
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.06) 2px,
-      rgba(0, 0, 0, 0.06) 4px
+      rgba(57, 255, 20, 0.025) 2px,
+      rgba(57, 255, 20, 0.025) 4px
     ),
     linear-gradient(
       180deg,
       transparent 0%,
-      rgba(57, 255, 20, 0.015) 50%,
+      rgba(57, 255, 20, 0.04) 45%,
+      rgba(57, 255, 20, 0.04) 55%,
       transparent 100%
     );
   background-size: 100% 4px, 100% 300%;
-  animation: crt-roll 8s linear infinite, crt-flicker 4s ease-in-out infinite;
+  animation: crt-roll 14s linear infinite, crt-flicker 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 @keyframes crt-roll {
@@ -731,12 +737,12 @@ body::before {
 }
 
 @keyframes crt-flicker {
-  0%, 100% { opacity: 0.4; }
-  10%      { opacity: 0.55; }
-  20%      { opacity: 0.4; }
-  50%      { opacity: 0.5; }
-  80%      { opacity: 0.35; }
-  92%      { opacity: 0.55; }
+  0%, 100% { opacity: 0.5; }
+  10%      { opacity: 0.65; }
+  20%      { opacity: 0.5; }
+  50%      { opacity: 0.6; }
+  80%      { opacity: 0.45; }
+  92%      { opacity: 0.7; }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -894,8 +900,8 @@ body::after {
 }
 
 .gallery-item:hover::before {
-  border-color: var(--accent);
-  box-shadow: inset 0 0 30px var(--accent-dim), 0 0 40px var(--accent-dim);
+  border-color: var(--warm);
+  box-shadow: inset 0 0 30px var(--warm-dim), 0 0 40px var(--warm-dim);
 }
 
 .gallery-placeholder {
@@ -970,9 +976,9 @@ body::after {
 }
 
 .lightbox-close:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-  text-shadow: 0 0 12px var(--accent-mid);
+  color: var(--warm);
+  border-color: var(--warm);
+  text-shadow: 0 0 12px var(--warm-glow);
 }
 
 .lightbox-content {
