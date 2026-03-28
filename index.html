@@ -3,44 +3,333 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Portfolio</title>
+  <title>Ammon Richards — Designer / Photographer / Builder</title>
+  <meta name="description" content="Portfolio of Ammon Richards — 3D designer, photographer, hardware builder, and IT architect. Craft, technical depth, creative range.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Navigation Bar -->
-  <nav class="navbar">
-    <div class="nav-brand">My Portfolio</div>
-    <button class="nav-toggle" aria-label="Open navigation menu">
-      <span class="hamburger"></span>
-      <span class="hamburger"></span>
-      <span class="hamburger"></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="blog.html">Blog</a></li>
-      <li><a href="videos.html">Project Videos</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
+
+  <!-- ═══ NAVIGATION ═══ -->
+  <nav class="nav" id="nav">
+    <div class="nav-glow"></div>
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand">AR://</a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#about" data-index="01">ABOUT</a></li>
+        <li><a href="#projects" data-index="02">PROJECTS</a></li>
+        <li><a href="#capabilities" data-index="03">CAPABILITIES</a></li>
+        <li><a href="#contact" data-index="04">CONTACT</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <!-- Hero Section -->
-  <header class="hero">
-    <img src="images/avatar.jpeg" alt="Your professional headshot" class="hero-avatar">
+  <!-- ═══ HERO ═══ -->
+  <section class="hero" id="hero">
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
     <div class="hero-content">
-      <h1>Your Name</h1>
-      <h2>Your Professional Title</h2>
-      <p class="hero-tagline">A brief, compelling tagline about you or your work.</p>
-      <a href="about.html" class="cta-btn">Learn More</a>
+      <div class="hero-boot" id="hero-boot">
+        <p class="boot-line" data-delay="0">BIOS v3.7.1 .............. OK</p>
+        <p class="boot-line" data-delay="400">MEM CHECK 32768K ......... OK</p>
+        <p class="boot-line" data-delay="800">LOADING PORTFOLIO SYS .... OK</p>
+        <p class="boot-line" data-delay="1200">INIT DISPLAY DRIVER ...... OK</p>
+        <p class="boot-line" data-delay="1600">MOUNTING /USR/AMMON ...... OK</p>
+        <p class="boot-line boot-line--ready" data-delay="2100">&gt; SYSTEM READY_</p>
+      </div>
+      <div class="hero-main" id="hero-main">
+        <h1 class="hero-name" id="hero-name"></h1>
+        <div class="hero-tagline-wrap">
+          <span class="hero-tagline" id="hero-tagline"></span>
+          <span class="cursor" id="cursor">█</span>
+        </div>
+      </div>
     </div>
-  </header>
+  </section>
 
-  <!-- Placeholder for other sections -->
-  <main>
-    <!-- Add About, Projects, Blog, Videos, and Contact previews here as you build -->
-  </main>
+  <!-- ═══ ABOUT ═══ -->
+  <section class="section about" id="about">
+    <div class="section-grid"></div>
+    <div class="container reveal">
+      <div class="section-header">
+        <span class="section-index">01</span>
+        <h2>ABOUT</h2>
+        <span class="section-line"></span>
+      </div>
+      <div class="about-grid">
+        <div class="about-bio">
+          <p>
+            I design, photograph, and build things — digital and physical. My work
+            spans 3D visualization, photography, custom hardware, and IT infrastructure.
+            I'm not a specialist; I'm a maker who moves fluidly between disciplines,
+            driven by the conviction that understanding <em>how things work</em> at every
+            layer produces better outcomes than staying in one lane.
+          </p>
+          <p>
+            Whether it's fabricating a custom PCB for a flight simulator controller,
+            engineering a multi-camera surveillance network, or creating photorealistic
+            product renders — the through-line is precision, craft, and a refusal to
+            accept "good enough."
+          </p>
+        </div>
+        <div class="about-stats">
+          <div class="stat-block">
+            <pre>
+┌──────────────────────────────────────┐
+│  SYSTEM PROFILE                      │
+├──────────────────────────────────────┤
+│                                      │
+│  OPERATOR.... Ammon Richards         │
+│  DISCIPLINE.. 3D, Photo, Hardware    │
+│  STATUS...... Always building        │
+│  LOCATION.... [Your City]            │
+│  CURRENT..... [Current Project]      │
+│  UPTIME...... ∞                      │
+│                                      │
+└──────────────────────────────────────┘</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <script src="navbar.js"></script>
+  <!-- ═══ PROJECTS ═══ -->
+  <section class="section projects" id="projects">
+    <div class="section-grid"></div>
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-index">02</span>
+        <h2>PROJECTS</h2>
+        <span class="section-line"></span>
+      </div>
+      <div class="projects-grid">
+
+        <article class="project-card reveal" data-category="HARDWARE">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              <span>[ IMG ]</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">HARDWARE</span>
+            <h3 class="project-title">FLIGHT SIM CONTROLLER</h3>
+            <p class="project-desc">Custom PCB design & fabrication for precision flight simulation input</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://PROJ_001</span>
+            <span>STATUS: ACTIVE</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="IT">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              <span>[ IMG ]</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">IT</span>
+            <h3 class="project-title">CHURCH SURVEILLANCE SYSTEM</h3>
+            <p class="project-desc">Multi-camera IP network for comprehensive facility monitoring</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://PROJ_002</span>
+            <span>STATUS: DEPLOYED</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="IT">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              <span>[ IMG ]</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">IT</span>
+            <h3 class="project-title">CUSTOM ROUTER BUILD</h3>
+            <p class="project-desc">Bespoke network infrastructure — routing, firewalling, traffic shaping</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://PROJ_003</span>
+            <span>STATUS: OPERATIONAL</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="3D">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              <span>[ IMG ]</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">3D</span>
+            <h3 class="project-title">PRODUCT VISUALIZATION</h3>
+            <p class="project-desc">Photorealistic 3D renders for product design and presentation</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://PROJ_004</span>
+            <span>STATUS: IN PROGRESS</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="PHOTO">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              <span>[ IMG ]</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">PHOTO</span>
+            <h3 class="project-title">ARCHITECTURAL SERIES</h3>
+            <p class="project-desc">Capturing structure, light, and material in the built environment</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://PROJ_005</span>
+            <span>STATUS: ONGOING</span>
+          </div>
+        </article>
+
+        <article class="project-card reveal" data-category="HARDWARE">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              <span>[ IMG ]</span>
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">HARDWARE</span>
+            <h3 class="project-title">WORKSTATION BUILD</h3>
+            <p class="project-desc">High-performance custom workstation for rendering and creative work</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://PROJ_006</span>
+            <span>STATUS: COMPLETE</span>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CAPABILITIES ═══ -->
+  <section class="section capabilities" id="capabilities">
+    <div class="section-grid"></div>
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-index">03</span>
+        <h2>CAPABILITIES</h2>
+        <span class="section-line"></span>
+      </div>
+      <div class="capabilities-grid">
+
+        <div class="cap-block reveal">
+          <div class="cap-header">
+            <span class="cap-icon">◈</span>
+            <h3>FABRICATION</h3>
+          </div>
+          <div class="cap-readout">
+            <span class="cap-tag">PCB Design</span>
+            <span class="cap-tag">Soldering</span>
+            <span class="cap-tag">3D Printing</span>
+            <span class="cap-tag">Enclosure Design</span>
+            <span class="cap-tag">Prototyping</span>
+            <span class="cap-tag">Wiring & Assembly</span>
+          </div>
+        </div>
+
+        <div class="cap-block reveal">
+          <div class="cap-header">
+            <span class="cap-icon">◈</span>
+            <h3>VISUAL</h3>
+          </div>
+          <div class="cap-readout">
+            <span class="cap-tag">Photography</span>
+            <span class="cap-tag">3D Modeling</span>
+            <span class="cap-tag">Rendering</span>
+            <span class="cap-tag">Composition</span>
+            <span class="cap-tag">Lighting Design</span>
+            <span class="cap-tag">Post-Processing</span>
+          </div>
+        </div>
+
+        <div class="cap-block reveal">
+          <div class="cap-header">
+            <span class="cap-icon">◈</span>
+            <h3>NETWORK & IT</h3>
+          </div>
+          <div class="cap-readout">
+            <span class="cap-tag">Routing & Switching</span>
+            <span class="cap-tag">IP Camera Systems</span>
+            <span class="cap-tag">Firewall Config</span>
+            <span class="cap-tag">Server Admin</span>
+            <span class="cap-tag">VLANs</span>
+            <span class="cap-tag">Network Architecture</span>
+          </div>
+        </div>
+
+        <div class="cap-block reveal">
+          <div class="cap-header">
+            <span class="cap-icon">◈</span>
+            <h3>CREATIVE TOOLS</h3>
+          </div>
+          <div class="cap-readout">
+            <span class="cap-tag">Blender</span>
+            <span class="cap-tag">Lightroom</span>
+            <span class="cap-tag">Photoshop</span>
+            <span class="cap-tag">KiCad</span>
+            <span class="cap-tag">Fusion 360</span>
+            <span class="cap-tag">AI-Assisted Coding</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ CONTACT ═══ -->
+  <section class="section contact" id="contact">
+    <div class="section-grid"></div>
+    <div class="container reveal">
+      <div class="section-header">
+        <span class="section-index">04</span>
+        <h2>CONTACT</h2>
+        <span class="section-line"></span>
+      </div>
+      <div class="contact-content">
+        <div class="contact-transmission">
+          <div class="transmission-header">
+            <span class="blink-dot"></span>
+            <span>TRANSMISSION CHANNEL OPEN</span>
+          </div>
+          <div class="contact-line">
+            <span class="contact-label">EMAIL</span>
+            <a href="mailto:your@email.com" class="contact-value">your@email.com</a>
+          </div>
+          <div class="contact-line">
+            <span class="contact-label">GITHUB</span>
+            <a href="https://github.com/Ammon0020" class="contact-value" target="_blank" rel="noopener">github.com/Ammon0020</a>
+          </div>
+          <div class="contact-line">
+            <span class="contact-label">LINKEDIN</span>
+            <a href="#" class="contact-value">[Your LinkedIn]</a>
+          </div>
+        </div>
+        <div class="contact-status">
+          <span class="status-dot"></span>
+          <span class="status-text">AVAILABLE FOR PROJECTS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <div class="container">
+      <span class="footer-text">© 2026 AMMON RICHARDS — ALL SYSTEMS NOMINAL</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
