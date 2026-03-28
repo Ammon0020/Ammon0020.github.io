@@ -9,10 +9,11 @@
   // ─── CONFIG ───
   const NAME = 'AMMON RICHARDS';
   const TAGLINES = [
-    '3D Designer',
+    'IT Professional',
+    '3D Print Designer',
     'Photographer',
     'Hardware Builder',
-    'IT Architect',
+    'Computer Repair Tech',
     'Maker'
   ];
   const TYPE_SPEED = 55;       // ms per character
@@ -28,6 +29,9 @@
   const navToggle   = document.getElementById('nav-toggle');
   const navLinks    = document.getElementById('nav-links');
   const navAnchors  = document.querySelectorAll('.nav-links li a');
+  const lightbox    = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
 
   // ─── BOOT SEQUENCE ───
   function runBootSequence() {
@@ -110,6 +114,43 @@
       navToggle.classList.remove('active');
       navLinks.classList.remove('active');
     });
+  });
+
+  // ─── GALLERY LIGHTBOX ───
+  const galleryItems = document.querySelectorAll('.gallery-item');
+
+  galleryItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      const img = item.querySelector('img');
+      if (img) {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt || 'Gallery photo';
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    lightboxImg.src = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+      closeLightbox();
+    }
   });
 
   // ─── SCROLL REVEAL ───
