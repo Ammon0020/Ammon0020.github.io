@@ -8,12 +8,14 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="scroll-progress" id="scroll-progress"></div>
 
   <!-- ═══ NAVIGATION ═══ -->
   <nav class="nav" id="nav">
     <div class="nav-glow"></div>
     <div class="nav-inner">
       <a href="#hero" class="nav-brand">AR://</a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">☀</button>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
         <span></span><span></span><span></span>
       </button>
@@ -30,6 +32,7 @@
 
   <!-- ═══ HERO ═══ -->
   <section class="hero" id="hero">
+    <canvas id="particles" class="particles-canvas"></canvas>
     <div class="scanlines"></div>
     <div class="vignette"></div>
     <div class="hero-content">
@@ -111,6 +114,13 @@
         <span class="section-index">02</span>
         <h2>PROJECTS</h2>
         <span class="section-line"></span>
+      </div>
+      <div class="project-filters reveal">
+        <button class="filter-btn active" data-filter="ALL">ALL</button>
+        <button class="filter-btn" data-filter="HARDWARE">HARDWARE</button>
+        <button class="filter-btn" data-filter="IT">IT</button>
+        <button class="filter-btn" data-filter="3D">3D</button>
+        <button class="filter-btn" data-filter="PHOTO">PHOTO</button>
       </div>
       <div class="projects-grid">
 
@@ -370,6 +380,47 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- SKILLS PROFICIENCY READOUT -->
+      <div class="skills-readout reveal" id="skills-readout">
+        <div class="skills-readout-header">
+          <span class="blink-dot"></span>
+          <span>> SKILLS PROFICIENCY SCAN — RESULTS</span>
+        </div>
+        <div class="skills-bars">
+          <div class="skill-row" data-percent="90">
+            <span class="skill-label">NETWORKING & IT    </span>
+            <span class="skill-bar"><span class="skill-fill"></span></span>
+            <span class="skill-pct">0%</span>
+          </div>
+          <div class="skill-row" data-percent="85">
+            <span class="skill-label">3D PRINT / CAD     </span>
+            <span class="skill-bar"><span class="skill-fill"></span></span>
+            <span class="skill-pct">0%</span>
+          </div>
+          <div class="skill-row" data-percent="80">
+            <span class="skill-label">HARDWARE / REPAIR  </span>
+            <span class="skill-bar"><span class="skill-fill"></span></span>
+            <span class="skill-pct">0%</span>
+          </div>
+          <div class="skill-row" data-percent="75">
+            <span class="skill-label">PHOTOGRAPHY        </span>
+            <span class="skill-bar"><span class="skill-fill"></span></span>
+            <span class="skill-pct">0%</span>
+          </div>
+          <div class="skill-row" data-percent="70">
+            <span class="skill-label">SCRIPTING / CODE   </span>
+            <span class="skill-bar"><span class="skill-fill"></span></span>
+            <span class="skill-pct">0%</span>
+          </div>
+          <div class="skill-row" data-percent="85">
+            <span class="skill-label">PROJECT MGMT       </span>
+            <span class="skill-bar"><span class="skill-fill"></span></span>
+            <span class="skill-pct">0%</span>
+          </div>
+        </div>
+        <div class="skills-readout-footer">SCAN COMPLETE — ALL SYSTEMS NOMINAL</div>
       </div>
 
       <!-- WORK HISTORY — edit the spans below to add/remove employers -->

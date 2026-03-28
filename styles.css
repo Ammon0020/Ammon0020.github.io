@@ -1548,6 +1548,259 @@ body::after {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   SCROLL PROGRESS BAR
+   ═══════════════════════════════════════════════════════════ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-mid), 0 0 20px var(--accent-dim);
+  z-index: 10001;
+  transition: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PARTICLES CANVAS
+   ═══════════════════════════════════════════════════════════ */
+.particles-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THEME TOGGLE
+   ═══════════════════════════════════════════════════════════ */
+.theme-toggle {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  cursor: pointer;
+  transition: border-color var(--transition), text-shadow var(--transition), color var(--transition);
+  line-height: 1;
+  margin-left: auto;
+  margin-right: 1rem;
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent-mid);
+  text-shadow: 0 0 10px var(--accent-dim);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES
+   ═══════════════════════════════════════════════════════════ */
+[data-theme="light"] {
+  --bg:         #f0f0e8;
+  --bg-subtle:  #e8e8dc;
+  --bg-card:    #eaeade;
+  --accent:     #1a7a0a;
+  --accent-dim: rgba(26, 122, 10, 0.12);
+  --accent-mid: rgba(26, 122, 10, 0.35);
+  --warm:       #a02020;
+  --warm-dim:   rgba(160, 32, 32, 0.12);
+  --warm-mid:   rgba(160, 32, 32, 0.4);
+  --warm-glow:  rgba(160, 32, 32, 0.25);
+  --text:       #3a3a34;
+  --text-dim:   #8a8a7e;
+  --text-bright:#1a1a18;
+  --border:     #c8c8b8;
+  --border-lit: #b0b0a0;
+  --grid-color: rgba(26, 122, 10, 0.04);
+}
+
+/* Reduce CRT effects in light mode */
+[data-theme="light"] body::before {
+  opacity: 0.12;
+}
+
+[data-theme="light"] body::after {
+  opacity: 0.15;
+}
+
+[data-theme="light"] .scanlines {
+  opacity: 0.3;
+}
+
+[data-theme="light"] .vignette {
+  opacity: 0.25;
+}
+
+[data-theme="light"] .nav {
+  background: rgba(240, 240, 232, 0.92);
+}
+
+[data-theme="light"] .nav-links {
+  background: rgba(240, 240, 232, 0.98);
+}
+
+[data-theme="light"] .scroll-progress {
+  box-shadow: 0 0 6px var(--accent-mid);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROJECT FILTER TABS
+   ═══════════════════════════════════════════════════════════ */
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin-bottom: 0;
+  border: 1px solid var(--border);
+  border-bottom: none;
+  background: var(--bg-card);
+}
+
+.filter-btn {
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  transition: color var(--transition), background var(--transition), text-shadow var(--transition);
+  position: relative;
+}
+
+.filter-btn:last-child {
+  border-right: none;
+}
+
+.filter-btn:hover {
+  color: var(--accent);
+  background: rgba(57, 255, 20, 0.03);
+}
+
+.filter-btn.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+  text-shadow: 0 0 8px var(--accent-dim);
+}
+
+.filter-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  box-shadow: 0 0 8px var(--accent-mid);
+}
+
+.project-card {
+  transition: background var(--transition), opacity 0.4s ease, max-height 0.4s ease;
+}
+
+.project-card.filtered-out {
+  display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SKILLS PROFICIENCY READOUT
+   ═══════════════════════════════════════════════════════════ */
+.skills-readout {
+  margin-top: 2rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+}
+
+.skills-readout-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: var(--accent);
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.skills-bars {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+
+.skill-label {
+  color: var(--text);
+  letter-spacing: 1px;
+  min-width: 170px;
+  white-space: pre;
+  flex-shrink: 0;
+}
+
+.skill-bar {
+  flex: 1;
+  height: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-fill {
+  display: block;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(57, 255, 20, 0.6) 100%);
+  box-shadow: 0 0 8px var(--accent-dim);
+  transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
+
+.skill-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent), 0 0 12px var(--accent-mid);
+}
+
+.skill-pct {
+  color: var(--accent);
+  letter-spacing: 1px;
+  min-width: 36px;
+  text-align: right;
+  font-weight: 500;
+}
+
+.skills-readout-footer {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--text-dim);
+  padding: 0.8rem 1.5rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
@@ -1565,6 +1818,11 @@ body::after {
 
   .gallery-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .skill-label {
+    min-width: 120px;
+    font-size: 0.65rem;
   }
 }
 
