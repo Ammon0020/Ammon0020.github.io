@@ -590,6 +590,22 @@
     skillsObserver.observe(skillsReadout);
   }
 
+  // ─── HIRE FORM TOGGLE ───
+  const lvlUpBtn = document.getElementById('lvl-up-btn');
+  const hireFormPanel = document.getElementById('hire-form-panel');
+
+  if (lvlUpBtn && hireFormPanel) {
+    lvlUpBtn.addEventListener('click', () => {
+      hireFormPanel.classList.toggle('active');
+      
+      if (hireFormPanel.classList.contains('active')) {
+        setTimeout(() => {
+          hireFormPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 300);
+      }
+    });
+  }
+
   // ─── INIT ───
   window.addEventListener('DOMContentLoaded', () => {
     runBootSequence();

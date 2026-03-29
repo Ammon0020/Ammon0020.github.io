@@ -490,8 +490,14 @@
       <!-- SKILLS PROFICIENCY READOUT -->
       <div class="skills-readout reveal" id="skills-readout">
         <div class="skills-readout-header">
-          <span class="blink-dot"></span>
-          <span>> SKILLS PROFICIENCY SCAN — RESULTS</span>
+          <div class="skills-readout-title">
+            <span class="blink-dot"></span>
+            <span>> SKILLS PROFICIENCY SCAN — RESULTS</span>
+          </div>
+          <button class="lvl-up-btn" id="lvl-up-btn">
+            <span class="lvl-up-icon">▲</span>
+            LEVEL UP
+          </button>
         </div>
         <div class="skills-bars">
           <div class="skill-row" data-percent="90">
@@ -526,6 +532,44 @@
           </div>
         </div>
         <div class="skills-readout-footer">SCAN COMPLETE — ALL SYSTEMS NOMINAL</div>
+        
+        <div class="hire-form-panel" id="hire-form-panel">
+          <div class="hire-form-header">
+            <span class="blink-dot"></span>
+            <span>> INIT HIRING PROTOCOL</span>
+          </div>
+          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="hire-form" id="hire-form">
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="hire-who" class="form-label">YOUR NAME [WHO]</label>
+                <input type="text" id="hire-who" name="who" class="form-input" required autocomplete="name">
+              </div>
+              <div class="form-group half">
+                <label for="hire-company" class="form-label">FACTION [COMPANY]</label>
+                <input type="text" id="hire-company" name="company" class="form-input" required autocomplete="organization">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group half">
+                <label for="hire-position" class="form-label">CLASS [POSITION]</label>
+                <input type="text" id="hire-position" name="position" class="form-input" required>
+              </div>
+              <div class="form-group half">
+                <label for="hire-pay" class="form-label">LOOT [PAY/SALARY]</label>
+                <input type="text" id="hire-pay" name="pay" class="form-input" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="hire-desc" class="form-label">QUEST LOG [JOB DESCRIPTION]</label>
+              <textarea id="hire-desc" name="job_description" class="form-input form-textarea" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="hire-msg" class="form-label">ADDITIONAL COMMS [MESSAGE]</label>
+              <textarea id="hire-msg" name="message" class="form-input form-textarea" rows="3"></textarea>
+            </div>
+            <button type="submit" class="form-submit lvl-up-submit">&gt; ALLOCATE POINTS_</button>
+          </form>
+        </div>
       </div>
 
       <!-- WORK HISTORY — edit the spans below to add/remove employers -->
