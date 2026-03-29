@@ -415,15 +415,178 @@
   const nav = document.getElementById('nav');
   let lastScrollY = 0;
 
+  // ─── SCROLL PROGRESS INDICATOR ───
+  const scrollProgress = document.getElementById('scroll-progress');
+
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
+
+    // Nav border glow
     if (scrollY > 100) {
       nav.style.borderBottomColor = 'rgba(57, 255, 20, 0.1)';
     } else {
       nav.style.borderBottomColor = '';
     }
     lastScrollY = scrollY;
+
+    // Update scroll progress bar
+    if (scrollProgress) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      scrollProgress.style.width = pct + '%';
+    }
   }, { passive: true });
+
+  // ─── AMBIENT PARTICLE LAYER ───
+  const particleCanvas = document.getElementById('particles');
+  if (particleCanvas) {
+    const ctx = particleCanvas.getContext('2d');
+    const particles = [];
+    const PARTICLE_COUNT = 40;
+
+    function resizeCanvas() {
+      const hero = particleCanvas.closest('.hero');
+      if (hero) {
+        particleCanvas.width = hero.offsetWidth;
+        particleCanvas.height = hero.offsetHeight;
+      }
+    }
+
+    function createParticle() {
+      return {
+        x: Math.random() * particleCanvas.width,
+        y: Math.random() * particleCanvas.height,
+        r: Math.random() * 1.5 + 0.5,
+        dx: (Math.random() - 0.5) * 0.3,
+        dy: (Math.random() - 0.5) * 0.3,
+        opacity: Math.random() * 0.3 + 0.1
+      };
+    }
+
+    function initParticles() {
+      particles.length = 0;
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(createParticle());
+      }
+    }
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+      const w = particleCanvas.width;
+      const h = particleCanvas.height;
+
+      particles.forEach((p) => {
+        p.x += p.dx;
+        p.y += p.dy;
+
+        // Wrap around edges
+        if (p.x < 0) p.x = w;
+        if (p.x > w) p.x = 0;
+        if (p.y < 0) p.y = h;
+        if (p.y > h) p.y = 0;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(57, 255, 20, ' + p.opacity + ')';
+        ctx.fill();
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+
+    resizeCanvas();
+    initParticles();
+    drawParticles();
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+    });
+  }
+
+  // ─── DARK/LIGHT MODE TOGGLE ───
+  const themeToggle = document.getElementById('theme-toggle');
+  if (themeToggle) {
+    // Check for saved preference, then system preference
+    const saved = localStorage.getItem('theme');
+    if (saved) {
+      document.documentElement.setAttribute('data-theme', saved);
+      themeToggle.textContent = saved === 'light' ? '☾' : '☀';
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeToggle.textContent = '☾';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      themeToggle.textContent = next === 'light' ? '☾' : '☀';
+    });
+  }
+
+  // ─── PROJECT FILTER TABS ───
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const allProjectCards = document.querySelectorAll('.project-card[data-category]');
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Update active button
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+
+      allProjectCards.forEach((card) => {
+        if (filter === 'ALL' || card.dataset.category === filter) {
+          card.classList.remove('filtered-out');
+        } else {
+          card.classList.add('filtered-out');
+          card.classList.remove('expanded');
+        }
+      });
+    });
+  });
+
+  // ─── SKILLS PROFICIENCY READOUT ANIMATION ───
+  const skillsReadout = document.getElementById('skills-readout');
+  if (skillsReadout) {
+    let skillsAnimated = false;
+    const skillsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !skillsAnimated) {
+            skillsAnimated = true;
+            const rows = skillsReadout.querySelectorAll('.skill-row');
+            rows.forEach((row, i) => {
+              const target = parseInt(row.dataset.percent, 10) || 0;
+              const fill = row.querySelector('.skill-fill');
+              const pct = row.querySelector('.skill-pct');
+
+              setTimeout(() => {
+                if (fill) fill.style.width = target + '%';
+
+                // Animate the percentage number
+                let current = 0;
+                const step = Math.ceil(target / 30);
+                const interval = setInterval(() => {
+                  current += step;
+                  if (current >= target) {
+                    current = target;
+                    clearInterval(interval);
+                  }
+                  if (pct) pct.textContent = current + '%';
+                }, 40);
+              }, i * 200);
+            });
+            skillsObserver.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    skillsObserver.observe(skillsReadout);
+  }
 
   // ─── INIT ───
   window.addEventListener('DOMContentLoaded', () => {
