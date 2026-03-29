@@ -30,22 +30,22 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #f2f2eb;
-  --bg-subtle: #e8e8e0;
-  --bg-card: #ffffff;
-  --accent: #0047AB;
-  --accent-dim: rgba(0, 71, 171, 0.15);
-  --accent-mid: rgba(0, 71, 171, 0.4);
-  --warm: #D32F2F;
-  --warm-dim: rgba(211, 47, 47, 0.15);
-  --warm-mid: rgba(211, 47, 47, 0.4);
-  --warm-glow: rgba(211, 47, 47, 0.25);
-  --text: #3a3a35;
-  --text-dim: #6b6b60;
-  --text-bright: #111110;
-  --border: #d4d4cc;
-  --border-lit: #bababa;
-  --grid-color: rgba(0, 71, 171, 0.05);
+  --bg: #fefae0;
+  --bg-subtle: #f9f4d2;
+  --bg-card: #faedcd;
+  --accent: #d4a373;
+  --accent-dim: rgba(212, 163, 115, 0.15);
+  --accent-mid: rgba(212, 163, 115, 0.4);
+  --warm: #cc5803;
+  --warm-dim: rgba(204, 88, 3, 0.15);
+  --warm-mid: rgba(204, 88, 3, 0.4);
+  --warm-glow: rgba(204, 88, 3, 0.25);
+  --text: #3a2a1a;
+  --text-dim: #6b5a4a;
+  --text-bright: #1c140d;
+  --border: #e6d5b8;
+  --border-lit: #d4a373;
+  --grid-color: rgba(212, 163, 115, 0.08);
 }
 
 /* ─── RESET ─── */

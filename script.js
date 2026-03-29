@@ -488,7 +488,7 @@
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        const rgb = isLight ? '0, 71, 171' : '57, 255, 20';
+        const rgb = isLight ? '212, 163, 115' : '57, 255, 20';
         ctx.fillStyle = 'rgba(' + rgb + ', ' + p.opacity + ')';
         ctx.fill();
       });
