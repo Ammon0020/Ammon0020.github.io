@@ -8,29 +8,50 @@
 
 /* ─── CUSTOM PROPERTIES ─── */
 :root {
-  --bg:         #0a0a08;
-  --bg-subtle:  #0f0f0c;
-  --bg-card:    #111110;
-  --accent:     #39FF14;
+  --bg: #0a0a08;
+  --bg-subtle: #0f0f0c;
+  --bg-card: #111110;
+  --accent: #39FF14;
   --accent-dim: rgba(57, 255, 20, 0.15);
   --accent-mid: rgba(57, 255, 20, 0.4);
-  --warm:       #8B1A1A;
-  --warm-dim:   rgba(139, 26, 26, 0.2);
-  --warm-mid:   rgba(139, 26, 26, 0.5);
-  --warm-glow:  rgba(139, 26, 26, 0.35);
-  --text:       #d4d4c8;
-  --text-dim:   #6b6b60;
-  --text-bright:#f0f0e8;
-  --border:     #2a2a24;
+  --warm: #8B1A1A;
+  --warm-dim: rgba(139, 26, 26, 0.2);
+  --warm-mid: rgba(139, 26, 26, 0.5);
+  --warm-glow: rgba(139, 26, 26, 0.35);
+  --text: #d4d4c8;
+  --text-dim: #6b6b60;
+  --text-bright: #f0f0e8;
+  --border: #2a2a24;
   --border-lit: #3a3a30;
-  --mono:       'IBM Plex Mono', 'Courier New', monospace;
-  --serif:      'DM Serif Display', 'Georgia', serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --serif: 'DM Serif Display', 'Georgia', serif;
   --grid-color: rgba(57, 255, 20, 0.03);
   --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+:root[data-theme="light"] {
+  --bg: #f2f2eb;
+  --bg-subtle: #e8e8e0;
+  --bg-card: #ffffff;
+  --accent: #0047AB;
+  --accent-dim: rgba(0, 71, 171, 0.15);
+  --accent-mid: rgba(0, 71, 171, 0.4);
+  --warm: #D32F2F;
+  --warm-dim: rgba(211, 47, 47, 0.15);
+  --warm-mid: rgba(211, 47, 47, 0.4);
+  --warm-glow: rgba(211, 47, 47, 0.25);
+  --text: #3a3a35;
+  --text-dim: #6b6b60;
+  --text-bright: #111110;
+  --border: #d4d4cc;
+  --border-lit: #bababa;
+  --grid-color: rgba(0, 71, 171, 0.05);
+}
+
 /* ─── RESET ─── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -66,7 +87,10 @@ a:hover {
   text-shadow: 0 0 8px var(--accent-mid), 0 0 20px var(--accent-dim);
 }
 
-img { max-width: 100%; display: block; }
+img {
+  max-width: 100%;
+  display: block;
+}
 
 /* ─── CONTAINER ─── */
 .container {
@@ -96,14 +120,12 @@ img { max-width: 100%; display: block; }
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--warm-dim) 20%,
-    var(--warm) 50%,
-    var(--warm-dim) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      var(--warm-dim) 20%,
+      var(--warm) 50%,
+      var(--warm-dim) 80%,
+      transparent 100%);
   opacity: 0.8;
 }
 
@@ -191,9 +213,12 @@ img { max-width: 100%; display: block; }
 }
 
 @keyframes coffee-pulse {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 4px var(--accent-dim), 0 0 8px rgba(57, 255, 20, 0.05);
   }
+
   50% {
     box-shadow: 0 0 12px var(--accent-mid), 0 0 24px var(--accent-dim), inset 0 0 8px rgba(57, 255, 20, 0.08);
   }
@@ -268,13 +293,11 @@ img { max-width: 100%; display: block; }
 .scanlines {
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    rgba(0, 0, 0, 0.08) 2px,
-    rgba(0, 0, 0, 0.08) 4px
-  );
+  background: repeating-linear-gradient(0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 4px);
   pointer-events: none;
   z-index: 2;
 }
@@ -283,11 +306,9 @@ img { max-width: 100%; display: block; }
 .vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 50%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background: radial-gradient(ellipse at center,
+      transparent 50%,
+      rgba(0, 0, 0, 0.5) 100%);
   pointer-events: none;
   z-index: 3;
 }
@@ -375,8 +396,15 @@ img { max-width: 100%; display: block; }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -620,7 +648,7 @@ img { max-width: 100%; display: block; }
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              padding 0.4s ease;
+    padding 0.4s ease;
   border-top: 0px solid var(--border);
   position: relative;
 }
@@ -760,8 +788,8 @@ img { max-width: 100%; display: block; }
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              padding 0.3s ease,
-              opacity 0.3s ease;
+    padding 0.3s ease,
+    opacity 0.3s ease;
   opacity: 0;
   font-family: var(--mono);
   font-size: 0.75rem;
@@ -856,8 +884,13 @@ img { max-width: 100%; display: block; }
 }
 
 @keyframes ticker-scroll {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* ─── Work Detail Panel ─── */
@@ -1303,10 +1336,13 @@ img { max-width: 100%; display: block; }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
+
+  0%,
+  100% {
     opacity: 1;
     box-shadow: 0 0 4px var(--warm);
   }
+
   50% {
     opacity: 0.4;
     box-shadow: 0 0 12px var(--warm);
@@ -1469,20 +1505,16 @@ body::before {
   position: fixed;
   inset: 0;
   background:
-    repeating-linear-gradient(
-      0deg,
+    repeating-linear-gradient(0deg,
       transparent,
       transparent 2px,
       rgba(57, 255, 20, 0.025) 2px,
-      rgba(57, 255, 20, 0.025) 4px
-    ),
-    linear-gradient(
-      180deg,
+      rgba(57, 255, 20, 0.025) 4px),
+    linear-gradient(180deg,
       transparent 0%,
       rgba(57, 255, 20, 0.04) 45%,
       rgba(57, 255, 20, 0.04) 55%,
-      transparent 100%
-    );
+      transparent 100%);
   background-size: 100% 4px, 100% 300%;
   animation: crt-roll 14s linear infinite, crt-flicker 4s ease-in-out infinite;
   pointer-events: none;
@@ -1491,17 +1523,41 @@ body::before {
 }
 
 @keyframes crt-roll {
-  0%   { background-position: 0 0, 0 -100%; }
-  100% { background-position: 0 0, 0 200%; }
+  0% {
+    background-position: 0 0, 0 -100%;
+  }
+
+  100% {
+    background-position: 0 0, 0 200%;
+  }
 }
 
 @keyframes crt-flicker {
-  0%, 100% { opacity: 0.5; }
-  10%      { opacity: 0.65; }
-  20%      { opacity: 0.5; }
-  50%      { opacity: 0.6; }
-  80%      { opacity: 0.45; }
-  92%      { opacity: 0.7; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  10% {
+    opacity: 0.65;
+  }
+
+  20% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  80% {
+    opacity: 0.45;
+  }
+
+  92% {
+    opacity: 0.7;
+  }
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1511,11 +1567,9 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: radial-gradient(
-    ellipse at center,
-    transparent 60%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
+  background: radial-gradient(ellipse at center,
+      transparent 60%,
+      rgba(0, 0, 0, 0.35) 100%);
   pointer-events: none;
   z-index: 9999;
 }
@@ -1597,20 +1651,20 @@ body::after {
    LIGHT MODE OVERRIDES
    ═══════════════════════════════════════════════════════════ */
 [data-theme="light"] {
-  --bg:         #f0f0e8;
-  --bg-subtle:  #e8e8dc;
-  --bg-card:    #eaeade;
-  --accent:     #1a7a0a;
+  --bg: #f0f0e8;
+  --bg-subtle: #e8e8dc;
+  --bg-card: #eaeade;
+  --accent: #1a7a0a;
   --accent-dim: rgba(26, 122, 10, 0.12);
   --accent-mid: rgba(26, 122, 10, 0.35);
-  --warm:       #a02020;
-  --warm-dim:   rgba(160, 32, 32, 0.12);
-  --warm-mid:   rgba(160, 32, 32, 0.4);
-  --warm-glow:  rgba(160, 32, 32, 0.25);
-  --text:       #3a3a34;
-  --text-dim:   #8a8a7e;
-  --text-bright:#1a1a18;
-  --border:     #c8c8b8;
+  --warm: #a02020;
+  --warm-dim: rgba(160, 32, 32, 0.12);
+  --warm-mid: rgba(160, 32, 32, 0.4);
+  --warm-glow: rgba(160, 32, 32, 0.25);
+  --text: #3a3a34;
+  --text-dim: #8a8a7e;
+  --text-bright: #1a1a18;
+  --border: #c8c8b8;
   --border-lit: #b0b0a0;
   --grid-color: rgba(26, 122, 10, 0.04);
 }
@@ -1915,13 +1969,35 @@ body::after {
 
 /* ─── FLICKER HOVER UTILITY ─── */
 @keyframes text-flicker {
-  0%, 100% { opacity: 1; }
-  4% { opacity: 0.9; }
-  6% { opacity: 1; }
-  12% { opacity: 0.85; }
-  14% { opacity: 1; }
-  20% { opacity: 0.92; }
-  22% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  4% {
+    opacity: 0.9;
+  }
+
+  6% {
+    opacity: 1;
+  }
+
+  12% {
+    opacity: 0.85;
+  }
+
+  14% {
+    opacity: 1;
+  }
+
+  20% {
+    opacity: 0.92;
+  }
+
+  22% {
+    opacity: 1;
+  }
 }
 
 .nav-links li a:hover,

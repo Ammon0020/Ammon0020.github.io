@@ -23,14 +23,14 @@
   const PAUSE_BEFORE_TYPE = 500;
 
   // ─── ELEMENTS ───
-  const bootLines   = document.querySelectorAll('.boot-line');
-  const heroMain    = document.getElementById('hero-main');
-  const heroName    = document.getElementById('hero-name');
+  const bootLines = document.querySelectorAll('.boot-line');
+  const heroMain = document.getElementById('hero-main');
+  const heroName = document.getElementById('hero-name');
   const heroTagline = document.getElementById('hero-tagline');
-  const navToggle   = document.getElementById('nav-toggle');
-  const navLinks    = document.getElementById('nav-links');
-  const navAnchors  = document.querySelectorAll('.nav-links li a');
-  const lightbox    = document.getElementById('lightbox');
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  const navAnchors = document.querySelectorAll('.nav-links li a');
+  const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
 
@@ -487,7 +487,9 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(57, 255, 20, ' + p.opacity + ')';
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        const rgb = isLight ? '0, 71, 171' : '57, 255, 20';
+        ctx.fillStyle = 'rgba(' + rgb + ', ' + p.opacity + ')';
         ctx.fill();
       });
 
