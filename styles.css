@@ -14,6 +14,7 @@
   --accent: #39FF14;
   --accent-dim: rgba(57, 255, 20, 0.15);
   --accent-mid: rgba(57, 255, 20, 0.4);
+  --accent-glow: rgba(57, 255, 20, 0.08);
   --warm: #8B1A1A;
   --warm-dim: rgba(139, 26, 26, 0.2);
   --warm-mid: rgba(139, 26, 26, 0.5);
@@ -36,6 +37,7 @@
   --accent: #7a5c30;
   --accent-dim: rgba(122, 92, 48, 0.15);
   --accent-mid: rgba(122, 92, 48, 0.4);
+  --accent-glow: rgba(122, 92, 48, 0.08);
   --warm: #cc5803;
   --warm-dim: rgba(204, 88, 3, 0.15);
   --warm-mid: rgba(204, 88, 3, 0.4);
@@ -377,7 +379,7 @@ img {
   letter-spacing: 0.04em;
   line-height: 1.1;
   margin-bottom: 1rem;
-  text-shadow: 0 0 40px rgba(57, 255, 20, 0.08);
+  text-shadow: 0 0 40px var(--accent-glow);
 }
 
 .hero-tagline-wrap {
