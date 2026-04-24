@@ -246,6 +246,15 @@ img {
   opacity: 1;
 }
 
+.coffee-icon {
+  display: inline-block;
+  transition: transform var(--transition);
+}
+
+.nav-links li a.nav-coffee:hover .coffee-icon {
+  transform: translateY(-3px) scale(1.15);
+}
+
 /* Mobile toggle */
 .nav-toggle {
   display: none;
