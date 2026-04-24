@@ -445,11 +445,8 @@
     const PARTICLE_COUNT = 40;
 
     function resizeCanvas() {
-      const hero = particleCanvas.closest('.hero');
-      if (hero) {
-        particleCanvas.width = hero.offsetWidth;
-        particleCanvas.height = hero.offsetHeight;
-      }
+      particleCanvas.width = window.innerWidth;
+      particleCanvas.height = window.innerHeight;
     }
 
     function createParticle() {

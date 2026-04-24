@@ -296,12 +296,11 @@ img {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: var(--bg);
 }
 
 /* Scanlines */
 .scanlines {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: repeating-linear-gradient(0deg,
       transparent,
@@ -309,7 +308,7 @@ img {
       rgba(0, 0, 0, 0.08) 2px,
       rgba(0, 0, 0, 0.08) 4px);
   pointer-events: none;
-  z-index: 2;
+  z-index: 900;
 }
 
 /* Vignette */
@@ -1630,9 +1629,9 @@ body::after {
    PARTICLES CANVAS
    ═══════════════════════════════════════════════════════════ */
 .particles-canvas {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
 }
 
