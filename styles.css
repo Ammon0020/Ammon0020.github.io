@@ -224,16 +224,17 @@ img {
   }
 }
 
-.nav-coffee::before {
+.nav-links li a.nav-coffee::before {
   content: '' !important;
   position: absolute;
   inset: 0;
   background: var(--accent-dim);
   opacity: 0;
   transition: opacity var(--transition);
+  z-index: -1;
 }
 
-.nav-coffee:hover {
+.nav-links li a.nav-coffee:hover {
   color: var(--text-bright) !important;
   border-color: var(--accent) !important;
   text-shadow: 0 0 12px var(--accent-mid) !important;
@@ -241,7 +242,7 @@ img {
   animation: none;
 }
 
-.nav-coffee:hover::before {
+.nav-links li a.nav-coffee:hover::before {
   opacity: 1;
 }
 
