@@ -31,21 +31,21 @@
 
 :root[data-theme="light"] {
   --bg: #fefae0;
-  --bg-subtle: #f9f4d2;
+  --bg-subtle: #f5edd0;
   --bg-card: #faedcd;
-  --accent: #d4a373;
-  --accent-dim: rgba(212, 163, 115, 0.15);
-  --accent-mid: rgba(212, 163, 115, 0.4);
+  --accent: #7a5c30;
+  --accent-dim: rgba(122, 92, 48, 0.15);
+  --accent-mid: rgba(122, 92, 48, 0.4);
   --warm: #cc5803;
   --warm-dim: rgba(204, 88, 3, 0.15);
   --warm-mid: rgba(204, 88, 3, 0.4);
   --warm-glow: rgba(204, 88, 3, 0.25);
-  --text: #3a2a1a;
-  --text-dim: #6b5a4a;
-  --text-bright: #1c140d;
+  --text: #1a1a1a;
+  --text-dim: #3d3d3d;
+  --text-bright: #000000;
   --border: #e6d5b8;
   --border-lit: #d4a373;
-  --grid-color: rgba(212, 163, 115, 0.08);
+  --grid-color: rgba(122, 92, 48, 0.08);
 }
 
 /* ─── RESET ─── */
@@ -569,7 +569,7 @@ img {
 
 .project-card.expanded::before {
   border-color: var(--accent-dim);
-  box-shadow: inset 0 0 30px var(--accent-dim), 0 0 40px rgba(57, 255, 20, 0.05);
+  box-shadow: inset 0 0 30px var(--accent-dim), 0 0 40px var(--accent-dim);
 }
 
 .project-img {
@@ -1651,22 +1651,22 @@ body::after {
    LIGHT MODE OVERRIDES
    ═══════════════════════════════════════════════════════════ */
 [data-theme="light"] {
-  --bg: #f0f0e8;
-  --bg-subtle: #e8e8dc;
-  --bg-card: #eaeade;
-  --accent: #1a7a0a;
-  --accent-dim: rgba(26, 122, 10, 0.12);
-  --accent-mid: rgba(26, 122, 10, 0.35);
-  --warm: #a02020;
-  --warm-dim: rgba(160, 32, 32, 0.12);
-  --warm-mid: rgba(160, 32, 32, 0.4);
-  --warm-glow: rgba(160, 32, 32, 0.25);
-  --text: #3a3a34;
-  --text-dim: #8a8a7e;
-  --text-bright: #1a1a18;
-  --border: #c8c8b8;
-  --border-lit: #b0b0a0;
-  --grid-color: rgba(26, 122, 10, 0.04);
+  --bg: #fefae0;
+  --bg-subtle: #f5edd0;
+  --bg-card: #faedcd;
+  --accent: #7a5c30;
+  --accent-dim: rgba(122, 92, 48, 0.15);
+  --accent-mid: rgba(122, 92, 48, 0.4);
+  --warm: #cc5803;
+  --warm-dim: rgba(204, 88, 3, 0.15);
+  --warm-mid: rgba(204, 88, 3, 0.4);
+  --warm-glow: rgba(204, 88, 3, 0.25);
+  --text: #1a1a1a;
+  --text-dim: #3d3d3d;
+  --text-bright: #000000;
+  --border: #e6d5b8;
+  --border-lit: #d4a373;
+  --grid-color: rgba(122, 92, 48, 0.08);
 }
 
 /* Reduce CRT effects in light mode */
@@ -1687,15 +1687,56 @@ body::after {
 }
 
 [data-theme="light"] .nav {
-  background: rgba(240, 240, 232, 0.92);
+  background: rgba(245, 237, 208, 0.92);
 }
 
 [data-theme="light"] .nav-links {
-  background: rgba(240, 240, 232, 0.98);
+  background: rgba(245, 237, 208, 0.98);
 }
 
 [data-theme="light"] .scroll-progress {
   box-shadow: 0 0 6px var(--accent-mid);
+}
+
+/* ─── Light Mode: Capability Tag Overrides ─── */
+[data-theme="light"] .cap-tag-desc {
+  background: rgba(122, 92, 48, 0.05);
+  border-left-color: var(--accent-mid);
+}
+
+/* ─── Light Mode: Project Card Overrides ─── */
+[data-theme="light"] .project-card:hover::before {
+  border-color: var(--warm);
+  box-shadow: inset 0 0 20px var(--warm-dim), 0 0 30px var(--warm-dim);
+}
+
+[data-theme="light"] .project-card.expanded::before {
+  border-color: var(--accent-mid);
+  box-shadow: inset 0 0 30px var(--accent-dim), 0 0 40px var(--accent-dim);
+}
+
+[data-theme="light"] .project-tag {
+  color: var(--accent);
+  border-color: var(--accent-dim);
+}
+
+[data-theme="light"] .project-detail h4 {
+  color: var(--accent);
+}
+
+[data-theme="light"] .filter-btn:hover {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+[data-theme="light"] .filter-btn.active {
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+
+/* ─── Light Mode: Gallery Caption Overlay ─── */
+[data-theme="light"] .gallery-caption-overlay {
+  background: rgba(254, 250, 224, 0.92);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1732,7 +1773,7 @@ body::after {
 
 .filter-btn:hover {
   color: var(--accent);
-  background: rgba(57, 255, 20, 0.03);
+  background: var(--accent-dim);
 }
 
 .filter-btn.active {
