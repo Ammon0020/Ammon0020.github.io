@@ -507,25 +507,37 @@
 
   // ─── DARK/LIGHT MODE TOGGLE ───
   const themeToggle = document.getElementById('theme-toggle');
-  if (themeToggle) {
-    // Check for saved preference, then system preference
-    const saved = localStorage.getItem('theme');
-    if (saved) {
-      document.documentElement.setAttribute('data-theme', saved);
-      themeToggle.textContent = saved === 'light' ? '☾' : '☀';
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-      document.documentElement.setAttribute('data-theme', 'light');
-      themeToggle.textContent = '☾';
-    }
 
+  function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    if (themeToggle) {
+      themeToggle.textContent = theme === 'light' ? '☾' : '☀';
+    }
+  }
+
+  // Initialize theme on load (if not already set by head script)
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    applyTheme(savedTheme);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+    applyTheme('light');
+  }
+
+  if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      const current = document.documentElement.getAttribute('data-theme');
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
       const next = current === 'light' ? 'dark' : 'light';
-      document.documentElement.setAttribute('data-theme', next);
+      applyTheme(next);
       localStorage.setItem('theme', next);
-      themeToggle.textContent = next === 'light' ? '☾' : '☀';
     });
   }
+
+  // Sync theme across multiple tabs/windows in real-time
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'theme') {
+      applyTheme(e.newValue || 'dark');
+    }
+  });
 
   // ─── PROJECT FILTER TABS ───
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -605,6 +617,29 @@
       }
     });
   }
+
+  // ─── LOCAL FILE THEME SYNC ───
+  // Appends the current theme to internal links to ensure smooth transitions
+  // when testing locally via file:// protocol where localStorage is isolated.
+  document.addEventListener('click', (e) => {
+    const link = e.target.closest('a');
+    if (!link || !link.href) return;
+    
+    // Check if it's an internal HTML link
+    const isInternalHtml = link.href.includes('.html') && 
+                           (link.hostname === window.location.hostname || link.protocol === 'file:');
+                           
+    if (isInternalHtml) {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      if (currentTheme) {
+        try {
+          const url = new URL(link.href, window.location.href);
+          url.searchParams.set('theme', currentTheme);
+          link.href = url.toString();
+        } catch (err) {}
+      }
+    }
+  });
 
   // ─── INIT ───
   window.addEventListener('DOMContentLoaded', () => {
