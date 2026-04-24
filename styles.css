@@ -1750,6 +1750,11 @@ body::after {
   background: rgba(254, 250, 224, 0.92);
 }
 
+/* ─── Light Mode: Skills Readout Overrides ─── */
+[data-theme="light"] .skill-fill {
+  background: linear-gradient(90deg, var(--bg-card) 0%, hsl(38, 50%, 50%) 100%);
+}
+
 /* ═══════════════════════════════════════════════════════════
    PROJECT FILTER TABS
    ═══════════════════════════════════════════════════════════ */
@@ -1879,7 +1884,7 @@ body::after {
   display: block;
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, var(--accent) 0%, rgba(57, 255, 20, 0.6) 100%);
+  background: linear-gradient(90deg, #000000 0%, rgba(57, 255, 20, 0.6) 100%);
   box-shadow: 0 0 8px var(--accent-dim);
   transition: width 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
