@@ -22,6 +22,97 @@
   const PAUSE_BEFORE_DELETE = 2200;
   const PAUSE_BEFORE_TYPE = 500;
 
+  // ─── DYNAMIC DATA RENDERING ───
+  const projContainer = document.getElementById('projects-grid-container');
+  if (projContainer && window.siteData && window.siteData.projects) {
+    const isHomePage = document.getElementById('hero') !== null;
+    let projectsHtml = '';
+    
+    // Filter projects for home page
+    const projectsToRender = isHomePage 
+      ? window.siteData.projects.filter(p => p.showOnHome)
+      : window.siteData.projects;
+
+    projectsToRender.forEach(p => {
+      const imgHtml = p.image ? `<img src="${p.image}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0.6; mix-blend-mode:luminosity;">` : `<span>${p.placeholder}</span>`;
+      
+      projectsHtml += `
+        <article class="project-card reveal" data-category="${p.category}">
+          <div class="project-img">
+            <div class="project-img-placeholder">
+              ${imgHtml}
+            </div>
+          </div>
+          <div class="project-info">
+            <span class="project-tag">${p.category}</span>
+            <h3 class="project-title">${p.title}</h3>
+            <p class="project-desc">${p.summary}</p>
+          </div>
+          <div class="project-meta">
+            <span>FILE://${p.id}</span>
+            <span>STATUS: ${p.status}</span>
+          </div>
+          <div class="project-detail">
+            <button class="project-detail-close" aria-label="Close detail">✕</button>
+            <div class="project-detail-inner markdown-body" data-content-file="${p.contentFile}">
+              <div style="padding: 2rem; color: var(--color-accent); font-family: var(--font-mono); font-size: 0.9rem; text-align: center;">&gt; INITIATING FILE TRANSFER...</div>
+            </div>
+          </div>
+        </article>
+      `;
+    });
+    
+    // Add "View All" button on home page
+    if (isHomePage) {
+       projectsHtml += `
+        <a href="projects.html" class="view-all-tile reveal">
+          <span class="view-all-icon">◈</span>
+          <span class="view-all-label">&gt; ACCESS ALL PROJECTS_</span>
+          <span class="view-all-count">${window.siteData.projects.length} FILES INDEXED</span>
+        </a>
+       `;
+    }
+    
+    projContainer.innerHTML = projectsHtml;
+  }
+
+  const galContainer = document.getElementById('gallery-grid-container');
+  if (galContainer && window.siteData && window.siteData.gallery) {
+    const isHomePage = document.getElementById('hero') !== null;
+    let galleryHtml = '';
+    
+    const galleryToRender = isHomePage 
+      ? window.siteData.gallery.slice(0, 8) // Limit to 8 on home
+      : window.siteData.gallery;
+
+    galleryToRender.forEach(g => {
+      const imgHtml = g.image ? `<img src="${g.image}" alt="Gallery photo" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; filter:grayscale(100%);">` : `<span>${g.placeholder}</span>`;
+      
+      galleryHtml += `
+        <div class="gallery-item reveal" tabindex="0" data-caption="${g.caption}">
+          <div class="gallery-placeholder">
+            ${imgHtml}
+          </div>
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">${g.caption}</span>
+          </div>
+        </div>
+      `;
+    });
+    
+    if (isHomePage) {
+       galleryHtml += `
+        <a href="gallery.html" class="view-all-tile view-all-tile--gallery reveal">
+          <span class="view-all-icon">◈</span>
+          <span class="view-all-label">&gt; ACCESS FULL ARCHIVE_</span>
+          <span class="view-all-count">${window.siteData.gallery.length} PHOTOS INDEXED</span>
+        </a>
+       `;
+    }
+    
+    galContainer.innerHTML = galleryHtml;
+  }
+
   // ─── ELEMENTS ───
   const bootLines = document.querySelectorAll('.boot-line');
   const heroMain = document.getElementById('hero-main');
@@ -150,6 +241,29 @@
 
     if (!isExpanded) {
       card.classList.add('expanded');
+      
+      // Load Markdown dynamically
+      const detailInner = card.querySelector('.project-detail-inner');
+      if (detailInner && detailInner.dataset.contentFile && !detailInner.dataset.loaded) {
+        const fileUrl = detailInner.dataset.contentFile;
+        fetch(fileUrl)
+          .then(res => {
+            if (!res.ok) throw new Error('File not found');
+            return res.text();
+          })
+          .then(text => {
+            if (window.marked) {
+              detailInner.innerHTML = window.marked.parse(text);
+            } else {
+              detailInner.innerHTML = '<pre style="white-space: pre-wrap;">' + text + '</pre>';
+            }
+            detailInner.dataset.loaded = 'true';
+          })
+          .catch(err => {
+            detailInner.innerHTML = '<div style="color:var(--color-accent); padding:2rem; font-family:var(--font-mono);">&gt; ERROR: FILE CORRUPTED OR MISSING. ' + err.message + '</div>';
+          });
+      }
+
       // Scroll to card smoothly
       setTimeout(() => {
         card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
