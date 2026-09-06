@@ -711,8 +711,26 @@
       { threshold: 0.2 }
     );
     skillsObserver.observe(skillsReadout);
-  }
 
+    // Add click listeners to skill rows
+    const skillRows = skillsReadout.querySelectorAll('.skill-row');
+    skillRows.forEach(row => {
+      row.addEventListener('click', () => {
+        const item = row.closest('.skill-item');
+        if (!item) return;
+        const isExpanded = item.classList.contains('expanded');
+        
+        // Close all other items
+        skillsReadout.querySelectorAll('.skill-item').forEach(i => i.classList.remove('expanded'));
+        skillsReadout.querySelectorAll('.skill-row').forEach(r => r.classList.remove('expanded'));
+        
+        if (!isExpanded) {
+          item.classList.add('expanded');
+          row.classList.add('expanded');
+        }
+      });
+    });
+  }
   // ─── HIRE FORM TOGGLE ───
   const lvlUpBtn = document.getElementById('lvl-up-btn');
   const hireFormPanel = document.getElementById('hire-form-panel');
