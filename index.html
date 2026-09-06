@@ -12,7 +12,7 @@
   <script src="js/data.js"></script>
   <!-- Prevent FOUC for theme and support local file:// testing -->
   <script>
-    (function() {
+    (function () {
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const themeParam = urlParams.get('theme');
@@ -25,7 +25,7 @@
         } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
           document.documentElement.setAttribute('data-theme', 'light');
         }
-      } catch (e) {}
+      } catch (e) { }
     })();
   </script>
 </head>
@@ -48,7 +48,8 @@
         <li><a href="#capabilities" data-index="03">CAPABILITIES</a></li>
         <li><a href="#gallery" data-index="04">GALLERY</a></li>
         <li><a href="#contact" data-index="05">CONTACT</a></li>
-        <li><a href="https://buymeacoffee.com" class="nav-coffee" target="_blank" rel="noopener"><span class="coffee-icon">☕</span> BUY ME A COFFEE</a>
+        <li><a href="https://buymeacoffee.com" class="nav-coffee" target="_blank" rel="noopener"><span
+              class="coffee-icon">☕</span> BUY ME A COFFEE</a>
         </li>
       </ul>
     </div>
@@ -378,7 +379,7 @@
           </div>
         </div>
         <div class="skills-readout-footer">SCAN COMPLETE — ALL SYSTEMS NOMINAL</div>
-        
+
         <div class="hire-form-panel" id="hire-form-panel">
           <div class="hire-form-header">
             <span class="blink-dot"></span>
@@ -392,7 +393,8 @@
               </div>
               <div class="form-group half">
                 <label for="hire-company" class="form-label">FACTION [COMPANY]</label>
-                <input type="text" id="hire-company" name="company" class="form-input" required autocomplete="organization">
+                <input type="text" id="hire-company" name="company" class="form-input" required
+                  autocomplete="organization">
               </div>
             </div>
             <div class="form-row">
@@ -407,7 +409,8 @@
             </div>
             <div class="form-group">
               <label for="hire-desc" class="form-label">QUEST LOG [JOB DESCRIPTION]</label>
-              <textarea id="hire-desc" name="job_description" class="form-input form-textarea" rows="3" required></textarea>
+              <textarea id="hire-desc" name="job_description" class="form-input form-textarea" rows="3"
+                required></textarea>
             </div>
             <div class="form-group">
               <label for="hire-msg" class="form-label">ADDITIONAL COMMS [MESSAGE]</label>
@@ -511,23 +514,24 @@
             <span>TRANSMISSION CHANNEL OPEN</span>
           </div>
           <div class="contact-line">
-            <span class="contact-label">EMAIL</span>
+            <span class="contact-label">CONTACT</span>
             <button class="message-me-btn" id="message-me-btn">Message Me!</button>
           </div>
           <div class="contact-line">
             <span class="contact-label">GITHUB</span>
-            <a href="https://github.com/Ammon0020" class="contact-value" target="_blank"
-              rel="noopener">github.com/Ammon0020</a>
+            <a href="https://www.github.com/Ammon0020" class="contact-value" target="_blank"
+              rel="noopener">Ammon0020</a>
           </div>
           <div class="contact-line">
             <span class="contact-label">LINKEDIN</span>
-            <a href="#" class="contact-value">[Your LinkedIn]</a>
+            <a href="https://www.linkedin.com/in/ammon-richards" class="contact-value" target="_blank"
+              rel="noopener">Ammon Richards</a>
           </div>
         </div>
 
         <!-- Contact Form (Formspree) -->
         <div class="contact-form-panel" id="contact-form-panel">
-          <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="contact-form" id="contact-form">
+          <form action="https://formspree.io/f/xkjnvlqq" method="POST" class="contact-form" id="contact-form">
             <div class="form-group">
               <label for="form-name" class="form-label">NAME</label>
               <input type="text" id="form-name" name="name" class="form-input" required autocomplete="name">
