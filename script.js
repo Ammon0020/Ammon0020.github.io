@@ -118,7 +118,7 @@
       : publishedGallery;
 
     galleryToRender.forEach(g => {
-      const imgHtml = g.image ? `<img src="${g.image}" alt="Gallery photo" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; filter:grayscale(100%);">` : `<span>${g.placeholder}</span>`;
+      const imgHtml = g.image ? `<img src="${g.image}" alt="${g.title || 'Gallery photo'}" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; filter:grayscale(100%);">` : `<span>${g.placeholder}</span>`;
       
       const captionHtml = g.caption ? `
           <div class="gallery-caption-overlay">
@@ -126,7 +126,7 @@
           </div>` : '';
 
       galleryHtml += `
-        <div class="gallery-item reveal" tabindex="0"${g.caption ? ` data-caption="${g.caption}"` : ''}>
+        <div class="gallery-item reveal" tabindex="0"${g.caption ? ` data-caption="${g.caption}"` : ''}${g.title ? ` data-title="${g.title}"` : ''}>
           <div class="gallery-placeholder">
             ${imgHtml}
           </div>
@@ -159,6 +159,7 @@
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
   const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxTitle = document.getElementById('lightbox-title');
 
   // ─── BOOT SEQUENCE ───
   function runBootSequence() {
@@ -427,11 +428,15 @@
     item.addEventListener('click', (e) => {
       const img = item.querySelector('img');
       const hasCaption = item.dataset.caption;
+      const title = item.dataset.title || '';
 
       if (img) {
         // Open lightbox for real images
         lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || hasCaption || 'Gallery photo';
+        lightboxImg.alt = title || img.alt || hasCaption || 'Gallery photo';
+        if (lightboxTitle) {
+          lightboxTitle.textContent = title;
+        }
         lightbox.classList.add('active');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
@@ -460,6 +465,9 @@
     lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     lightboxImg.src = '';
+    if (lightboxTitle) {
+      lightboxTitle.textContent = '';
+    }
   }
 
   if (lightboxClose) {
@@ -468,7 +476,7 @@
 
   if (lightbox) {
     lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
+      if (e.target === lightbox || e.target.classList.contains('lightbox-content')) {
         closeLightbox();
       }
     });

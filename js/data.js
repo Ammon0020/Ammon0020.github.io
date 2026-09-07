@@ -72,14 +72,54 @@ window.siteData = {
       showOnHome: 3
     }
   ],
+  // Gallery configuration:
+  // - publish: defaults to true. Set 'publish: false' to hide photo from the site.
+  // - The first 2 published photos appear on the homepage grid alongside the archive tile.
   gallery: [
     {
-      image: "",
-      caption: "Urban geometry — converging lines and negative space in downtown architecture."
+      title: "Take Off",
+      image: "images/gallery/Take Off.jpg",
+      caption: "Take Off — High-altitude contrail catching the last golden rays of dusk above silhouetted trees."
     },
     {
-      image: "",
-      caption: "Custom PCB fresh from the reflow oven — traces and solder joints catching the light."
+      title: "Forest Walk",
+      image: "images/gallery/Forest Walk.jpg",
+      caption: "Forest Walk — Winding boardwalk disappearing into the deep, quiet canopy."
+    },
+    {
+      title: "A New Chapter",
+      image: "images/gallery/A New Chapter.jpg",
+      caption: "A New Chapter — Celebratory exit surrounded by family, friends, and shared joy."
+    },
+    {
+      title: "Golden Overgrowth",
+      image: "images/gallery/Golden Overgrowth.jpg",
+      caption: "Golden Overgrowth — Natural greenery framing golden glittery accents in an ethereal portrait study."
+    },
+    {
+      title: "The Overlook",
+      image: "images/gallery/The Overlook.jpg",
+      caption: "The Overlook — An intimate embrace suspended over the mist-filled canyon expanse."
+    },
+    {
+      title: "Summer Woods",
+      image: "images/gallery/Summer Woods.jpg",
+      caption: "Summer Woods — Soft woodland light and delicate bokeh framing a contemplative portrait."
+    },
+    {
+      title: "Hidden in the Meadow",
+      image: "images/gallery/Hidden in the Meadow.jpg",
+      caption: "Hidden in the Meadow — Quiet embrace secluded within tall summer grasses."
+    },
+    {
+      title: "The Ring",
+      image: "images/gallery/The Ring.jpg",
+      caption: "The Ring — Macro focus capturing the promise of forever against an intimate embrace."
+    },
+    {
+      title: "The Weight of Thought",
+      image: "images/gallery/The Weight of Thought.jpg",
+      caption: "The Weight of Thought — Moody, reflective portrait framed against rustic weathered wood."
     }
   ]
 };
