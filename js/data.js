@@ -37,17 +37,17 @@ window.siteData = {
       summary: "Custom enclosure design and 3D modeling for routers, controllers, and computer cases",
       status: "ACTIVE",
       date: "2023.11",
-      contentFile: "projects/3d-print-design.md",
+      contentFile: "projects/custom-3d-printer.md",
       showOnHome: true
     },
     {
-      title: "ARCHITECTURAL SERIES",
+      title: "WILDLIFE SERIES",
       category: "PHOTO",
       image: "",
-      summary: "Capturing structure, light, and material in the built environment",
-      status: "ONGOING",
-      date: "2024.01",
-      contentFile: "projects/architectural-series.md",
+      summary: "Capturing the diverse and often overlooked fauna native to the Greater Omaha and Council Bluffs area.",
+      status: "IN PROGRESS",
+      date: "2026.09",
+      contentFile: "projects/wildlife-series.md",
       showOnHome: true
     },
     {
@@ -56,7 +56,7 @@ window.siteData = {
       image: "",
       summary: "High-performance custom workstation for rendering and creative work",
       status: "COMPLETE",
-      date: "2024.06",
+      date: "2026.03",
       contentFile: "projects/workstation-build.md",
       showOnHome: false
     }
