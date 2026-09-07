@@ -120,14 +120,17 @@
     galleryToRender.forEach(g => {
       const imgHtml = g.image ? `<img src="${g.image}" alt="Gallery photo" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; filter:grayscale(100%);">` : `<span>${g.placeholder}</span>`;
       
+      const captionHtml = g.caption ? `
+          <div class="gallery-caption-overlay">
+            <span class="gallery-caption-text">${g.caption}</span>
+          </div>` : '';
+
       galleryHtml += `
-        <div class="gallery-item reveal" tabindex="0" data-caption="${g.caption}">
+        <div class="gallery-item reveal" tabindex="0"${g.caption ? ` data-caption="${g.caption}"` : ''}>
           <div class="gallery-placeholder">
             ${imgHtml}
           </div>
-          <div class="gallery-caption-overlay">
-            <span class="gallery-caption-text">${g.caption}</span>
-          </div>
+          ${captionHtml}
         </div>
       `;
     });
@@ -417,32 +420,35 @@
     });
   }
 
-  // ─── GALLERY CAPTION OVERLAY ───
+  // ─── GALLERY INTERACTION & LIGHTBOX ───
   const galleryItems = document.querySelectorAll('.gallery-item');
 
   galleryItems.forEach((item) => {
     item.addEventListener('click', (e) => {
-      // If this item has a real image and is not showing caption, open lightbox
       const img = item.querySelector('img');
       const hasCaption = item.dataset.caption;
 
-      if (hasCaption) {
-        // Toggle caption overlay
-        const wasCaptioned = item.classList.contains('captioned');
-
-        // Close all other captions
-        galleryItems.forEach(gi => gi.classList.remove('captioned'));
-
-        if (!wasCaptioned) {
-          item.classList.add('captioned');
-        }
-      } else if (img) {
-        // Open lightbox for real images without caption
+      if (img) {
+        // Open lightbox for real images
         lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || 'Gallery photo';
+        lightboxImg.alt = img.alt || hasCaption || 'Gallery photo';
         lightbox.classList.add('active');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+      } else if (hasCaption) {
+        // On touch devices or for placeholders without hover, allow tapping to toggle caption
+        const wasCaptioned = item.classList.contains('captioned');
+        galleryItems.forEach(gi => gi.classList.remove('captioned'));
+        if (!wasCaptioned) {
+          item.classList.add('captioned');
+        }
+      }
+    });
+
+    item.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
       }
     });
   });

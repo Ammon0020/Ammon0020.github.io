@@ -1217,7 +1217,7 @@ img {
   border: 1px solid transparent;
   transition: border-color var(--transition), box-shadow var(--transition);
   pointer-events: none;
-  z-index: 1;
+  z-index: 3;
 }
 
 .gallery-item:hover {
@@ -1266,17 +1266,23 @@ img {
 .gallery-caption-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(5, 5, 3, 0.85);
+  background: rgba(5, 5, 3, 0.88);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s ease, visibility 0.4s;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
   z-index: 2;
+  pointer-events: none;
 }
 
+.gallery-item:hover .gallery-caption-overlay,
+.gallery-item:focus .gallery-caption-overlay,
+.gallery-item:focus-within .gallery-caption-overlay,
 .gallery-item.captioned .gallery-caption-overlay {
   opacity: 1;
   visibility: visible;
@@ -1290,6 +1296,15 @@ img {
   line-height: 1.8;
   text-align: center;
   text-shadow: 0 0 15px var(--accent-dim);
+  transform: translateY(6px);
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.gallery-item:hover .gallery-caption-text,
+.gallery-item:focus .gallery-caption-text,
+.gallery-item:focus-within .gallery-caption-text,
+.gallery-item.captioned .gallery-caption-text {
+  transform: translateY(0);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1949,7 +1964,13 @@ body::after {
 
 /* ─── Light Mode: Gallery Caption Overlay ─── */
 [data-theme="light"] .gallery-caption-overlay {
-  background: rgba(254, 250, 224, 0.92);
+  background: rgba(254, 250, 224, 0.94);
+}
+
+[data-theme="light"] .gallery-caption-text {
+  color: var(--accent);
+  text-shadow: none;
+  font-weight: 500;
 }
 
 /* ─── Light Mode: Skills Readout Overrides ─── */
