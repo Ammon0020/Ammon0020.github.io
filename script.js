@@ -27,10 +27,9 @@
   if (projContainer && window.siteData && window.siteData.projects) {
     const publishedProjects = window.siteData.projects.filter(p => p.publish !== false);
 
-    // Auto-generate project IDs and placeholders based on their index
+    // Auto-generate project IDs based on their index
     publishedProjects.forEach((p, i) => {
       p.id = `PROJ_${String(i + 1).padStart(3, '0')}`;
-      p.placeholder = `[ IMG ]`;
     });
 
     const isHomePage = document.getElementById('hero') !== null;
@@ -59,23 +58,20 @@
       : publishedProjects;
 
     projectsToRender.forEach(p => {
-      const imgHtml = p.image ? `<img src="${p.image}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0.6; mix-blend-mode:luminosity;">` : `<span>${p.placeholder}</span>`;
       const safeTitle = (p.title || '').replace(/"/g, '&quot;');
       
       projectsHtml += `
         <article class="project-card reveal" data-category="${p.category}" data-id="${p.id}" data-title="${safeTitle}" data-status="${p.status || 'DEPLOYED'}" data-content-file="${p.contentFile || ''}" tabindex="0" role="button" aria-label="Open documentation for ${safeTitle}">
-          <div class="project-img">
-            <div class="project-img-placeholder">
-              ${imgHtml}
-            </div>
+          <div class="project-card-header">
+            <span class="project-tag">${p.category}</span>
+            <span class="project-id-chip">FILE://${p.id}</span>
           </div>
           <div class="project-info">
-            <span class="project-tag">${p.category}</span>
             <h3 class="project-title">${p.title}</h3>
             <p class="project-desc">${p.summary}</p>
           </div>
           <div class="project-meta">
-            <span>FILE://${p.id}</span>
+            <span class="project-meta-date">${p.date || 'INDEXED'}</span>
             <span class="project-action-hint">VIEW FILE ↗</span>
           </div>
         </article>

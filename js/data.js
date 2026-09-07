@@ -6,7 +6,6 @@ window.siteData = {
     {
       title: "FLIGHT SIM CONTROLLER",
       category: "HARDWARE",
-      image: "", // Leave empty to use placeholder
       summary: "Custom PCB design & fabrication for precision flight simulation input",
       status: "IN PROGRESS",
       date: "2026.04",
@@ -16,7 +15,6 @@ window.siteData = {
     {
       title: "CHURCH BROADCAST SYSTEM",
       category: "IT",
-      image: "",
       summary: "IP Camera for live streaming services with little human interaction.",
       status: "DEPLOYED",
       date: "2026.02",
@@ -26,7 +24,6 @@ window.siteData = {
     {
       title: "CUSTOM ROUTER BUILD",
       category: "IT",
-      image: "",
       summary: "Bespoke network infrastructure — routing, firewalling, traffic shaping",
       status: "OPERATIONAL",
       date: "2026.06",
@@ -36,7 +33,6 @@ window.siteData = {
     {
       title: "Custom 3D Printer",
       category: "3D",
-      image: "",
       summary: "Custom quality CoreXY 3D printer build with tool changing capability.",
       status: "IN PROGRESS",
       date: "2022.01",
@@ -45,7 +41,6 @@ window.siteData = {
     {
       title: "WILDLIFE SERIES",
       category: "PHOTO",
-      image: "",
       summary: "Capturing the diverse and often overlooked fauna native to the Greater Omaha and Council Bluffs area.",
       status: "IN PROGRESS",
       date: "2026.09",
@@ -54,7 +49,6 @@ window.siteData = {
     {
       title: "WORKSTATION BUILD",
       category: "HARDWARE",
-      image: "",
       summary: "High-performance custom workstation for rendering and creative work",
       status: "COMPLETE",
       date: "2026.03",
@@ -64,7 +58,6 @@ window.siteData = {
     {
       title: "HOMELAB DEVOPS CLUSTER",
       category: "IT",
-      image: "",
       summary: "Multi-node Proxmox and Kubernetes cluster for CKA & DCA prep, network observability, and infrastructure services",
       status: "ACTIVE",
       date: "2026.09",
