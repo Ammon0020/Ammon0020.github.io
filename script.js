@@ -60,9 +60,10 @@
 
     projectsToRender.forEach(p => {
       const imgHtml = p.image ? `<img src="${p.image}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0.6; mix-blend-mode:luminosity;">` : `<span>${p.placeholder}</span>`;
+      const safeTitle = (p.title || '').replace(/"/g, '&quot;');
       
       projectsHtml += `
-        <article class="project-card reveal" data-category="${p.category}">
+        <article class="project-card reveal" data-category="${p.category}" data-id="${p.id}" data-title="${safeTitle}" data-status="${p.status || 'DEPLOYED'}" data-content-file="${p.contentFile || ''}" tabindex="0" role="button" aria-label="Open documentation for ${safeTitle}">
           <div class="project-img">
             <div class="project-img-placeholder">
               ${imgHtml}
@@ -75,13 +76,7 @@
           </div>
           <div class="project-meta">
             <span>FILE://${p.id}</span>
-            <span>STATUS: ${p.status}</span>
-          </div>
-          <div class="project-detail">
-            <button class="project-detail-close" aria-label="Close detail">✕</button>
-            <div class="project-detail-inner markdown-body" data-content-file="${p.contentFile}">
-              <div style="padding: 2rem; color: var(--color-accent); font-family: var(--font-mono); font-size: 0.9rem; text-align: center;">&gt; INITIATING FILE TRANSFER...</div>
-            </div>
+            <span class="project-action-hint">VIEW FILE ↗</span>
           </div>
         </article>
       `;
@@ -248,66 +243,119 @@
     });
   });
 
-  // ─── PROJECT EXPAND-ON-CLICK ───
-  const projectCards = document.querySelectorAll('.project-card');
+  // ─── PROJECT DOSSIER MODAL ───
+  const projectModal = document.getElementById('project-modal');
+  const projectModalBody = document.getElementById('project-modal-body');
+  const projectModalTag = document.getElementById('project-modal-tag');
+  const projectModalId = document.getElementById('project-modal-id');
+  const projectModalStatus = document.getElementById('project-modal-status');
+  const projectModalFileIndicator = document.getElementById('project-modal-file-indicator');
+  const projectModalClose = document.getElementById('project-modal-close');
+  const projectModalBackdrop = document.getElementById('project-modal-backdrop');
+  const projectModalBackBtn = document.getElementById('project-modal-back-btn');
 
-  projectCards.forEach((card) => {
-    // Click on card header area (img, info, meta) to expand
-    const clickTargets = card.querySelectorAll('.project-img, .project-info, .project-meta');
-    clickTargets.forEach((target) => {
-      target.addEventListener('click', (e) => {
-        e.stopPropagation();
-        toggleProjectCard(card);
-      });
-    });
+  // Cache fetched markdown so subsequent clicks are instantaneous
+  const projectMdCache = new Map();
 
-    // Close button
-    const closeBtn = card.querySelector('.project-detail-close');
-    if (closeBtn) {
-      closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        card.classList.remove('expanded');
-      });
+  function openProjectModal(card) {
+    if (!projectModal || !projectModalBody) return;
+
+    const projId = card.dataset.id || 'PROJ_000';
+    const tag = card.dataset.category || 'PROJECT';
+    const status = card.dataset.status || 'DEPLOYED';
+    const contentFile = card.dataset.contentFile;
+    const title = card.dataset.title || 'PROJECT DOSSIER';
+
+    if (projectModalTag) projectModalTag.textContent = tag;
+    if (projectModalId) projectModalId.textContent = `FILE://${projId}`;
+    if (projectModalStatus) projectModalStatus.textContent = `STATUS: ${status}`;
+    if (projectModalFileIndicator) {
+      projectModalFileIndicator.textContent = contentFile ? `SRC: ${contentFile}` : `> END OF TRANSMISSION`;
     }
-  });
 
-  function toggleProjectCard(card) {
-    const isExpanded = card.classList.contains('expanded');
+    // Set high-tech loading state
+    projectModalBody.innerHTML = `
+      <div class="project-modal-loading">
+        <div class="project-modal-spinner"></div>
+        <div class="project-modal-loading-text">&gt; INITIALIZING STREAM: FILE://${projId} [${title}]...</div>
+        <div class="project-modal-loading-sub">&gt; PARSING MARKDOWN SPECIFICATION...</div>
+      </div>
+    `;
 
-    // Close all other expanded cards
-    projectCards.forEach((c) => c.classList.remove('expanded'));
+    // Show modal & prevent background scrolling
+    projectModal.classList.add('active');
+    projectModal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('modal-open');
 
-    if (!isExpanded) {
-      card.classList.add('expanded');
-      
-      // Load Markdown dynamically
-      const detailInner = card.querySelector('.project-detail-inner');
-      if (detailInner && detailInner.dataset.contentFile && !detailInner.dataset.loaded) {
-        const fileUrl = detailInner.dataset.contentFile;
-        fetch(fileUrl)
-          .then(res => {
-            if (!res.ok) throw new Error('File not found');
-            return res.text();
-          })
-          .then(text => {
-            if (window.marked) {
-              detailInner.innerHTML = window.marked.parse(text);
-            } else {
-              detailInner.innerHTML = '<pre style="white-space: pre-wrap;">' + text + '</pre>';
-            }
-            detailInner.dataset.loaded = 'true';
-          })
-          .catch(err => {
-            detailInner.innerHTML = '<div style="color:var(--color-accent); padding:2rem; font-family:var(--font-mono);">&gt; ERROR: FILE CORRUPTED OR MISSING. ' + err.message + '</div>';
-          });
+    if (!contentFile) {
+      projectModalBody.innerHTML = `
+        <div class="markdown-body">
+          <h1>${title}</h1>
+          <div class="project-modal-error">
+            <p>&gt; NO EXTERNAL DOCUMENTATION ATTACHED TO THIS ARCHIVE RECORD.</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    if (projectMdCache.has(contentFile)) {
+      renderMarkdown(projectMdCache.get(contentFile));
+    } else {
+      fetch(contentFile)
+        .then(res => {
+          if (!res.ok) throw new Error(`HTTP ${res.status}: File not found`);
+          return res.text();
+        })
+        .then(text => {
+          projectMdCache.set(contentFile, text);
+          renderMarkdown(text);
+        })
+        .catch(err => {
+          projectModalBody.innerHTML = `
+            <div class="project-modal-error">
+              <h3>&gt; TRANSMISSION ERROR: FAILED TO RETRIEVE DOSSIER</h3>
+              <p>${err.message}</p>
+              <p style="color:var(--text-dim); font-size:0.8rem; margin-top:0.75rem;">TARGET PATH: <code>${contentFile}</code></p>
+            </div>
+          `;
+        });
+    }
+
+    function renderMarkdown(mdText) {
+      if (window.marked) {
+        projectModalBody.innerHTML = window.marked.parse(mdText);
+      } else {
+        projectModalBody.innerHTML = '<pre style="white-space: pre-wrap;">' + mdText + '</pre>';
       }
-
-      // Scroll to card smoothly
-      setTimeout(() => {
-        card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 100);
+      projectModalBody.scrollTop = 0;
     }
   }
+
+  function closeProjectModal() {
+    if (!projectModal) return;
+    projectModal.classList.remove('active');
+    projectModal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('modal-open');
+  }
+
+  const projectCards = document.querySelectorAll('.project-card');
+  projectCards.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openProjectModal(card);
+    });
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openProjectModal(card);
+      }
+    });
+  });
+
+  if (projectModalClose) projectModalClose.addEventListener('click', closeProjectModal);
+  if (projectModalBackdrop) projectModalBackdrop.addEventListener('click', closeProjectModal);
+  if (projectModalBackBtn) projectModalBackBtn.addEventListener('click', closeProjectModal);
 
   // ─── CAPABILITY TAG DESCRIPTIONS ───
   const capTags = document.querySelectorAll('.cap-tag[data-desc]');
@@ -484,6 +532,9 @@
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+      if (projectModal && projectModal.classList.contains('active')) {
+        closeProjectModal();
+      }
       if (lightbox && lightbox.classList.contains('active')) {
         closeLightbox();
       }
@@ -495,8 +546,6 @@
       }
       // Close active cap desc on Escape
       closeActiveCapDesc();
-      // Close expanded project cards on Escape
-      projectCards.forEach(c => c.classList.remove('expanded'));
     }
   });
 
