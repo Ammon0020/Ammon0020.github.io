@@ -174,6 +174,8 @@
     );
     setTimeout(() => {
       heroMain.classList.add('visible');
+      const cornerAvatar = document.getElementById('hero-corner-avatar');
+      if (cornerAvatar) cornerAvatar.classList.add('visible');
       typeText(heroName, NAME, TYPE_SPEED, () => {
         startTaglineCycle();
       });
