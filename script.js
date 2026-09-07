@@ -36,9 +36,26 @@
     const isHomePage = document.getElementById('hero') !== null;
     let projectsHtml = '';
     
-    // Filter projects for home page
+    // Helper to determine homepage display and order:
+    // Accepts showOnHome: 1, showOnHome: 2, etc. (ordered), or showOnHome: true (defaults to end)
+    const getHomeOrder = (p, defaultIndex) => {
+      const val = p.showOnHome !== undefined ? p.showOnHome : p.showonhome;
+      if (typeof val === 'number' && val > 0) return val;
+      if (typeof val === 'string') {
+        const match = val.match(/\d+/);
+        if (match) return parseInt(match[0], 10);
+      }
+      if (val === true) return 1000 + defaultIndex;
+      return null; // Not shown on home
+    };
+
+    // Filter and sort projects for home page
     const projectsToRender = isHomePage 
-      ? publishedProjects.filter(p => p.showOnHome).slice(0, 2)
+      ? publishedProjects
+          .map((p, index) => ({ project: p, order: getHomeOrder(p, index) }))
+          .filter(item => item.order !== null)
+          .sort((a, b) => a.order - b.order)
+          .map(item => item.project)
       : publishedProjects;
 
     projectsToRender.forEach(p => {
