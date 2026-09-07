@@ -630,7 +630,7 @@
 
     // Nav border glow
     if (scrollY > 100) {
-      nav.style.borderBottomColor = 'rgba(57, 255, 20, 0.1)';
+      nav.style.borderBottomColor = 'rgba(39, 135, 66, 0.1)';
     } else {
       nav.style.borderBottomColor = '';
     }
@@ -721,7 +721,7 @@
       const w = particleCanvas.width;
       const h = particleCanvas.height;
       const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-      const rgb = isLight ? '212, 163, 115' : '57, 255, 20';
+      const rgb = isLight ? '212, 163, 115' : '39, 135, 66';
 
       // Velocity of cursor motion between animation frames
       let mouseVx = 0;
