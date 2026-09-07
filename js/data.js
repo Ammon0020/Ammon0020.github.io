@@ -59,6 +59,16 @@ window.siteData = {
       date: "2026.03",
       contentFile: "projects/workstation-build.md",
       showOnHome: false
+    },
+    {
+      title: "HOMELAB DEVOPS CLUSTER",
+      category: "IT",
+      image: "",
+      summary: "Multi-node Proxmox and Kubernetes cluster for CKA & DCA prep, network observability, and infrastructure services",
+      status: "ACTIVE",
+      date: "2026.09",
+      contentFile: "projects/homelab-cluster.md",
+      showOnHome: true
     }
   ],
   gallery: [
