@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;display=swap');
+
+    :root {
+      color-scheme: light dark;
+    }
+
+    text {
+      fill: #ffffff;
+      font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+      font-size: 46px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+      dominant-baseline: central;
+      text-anchor: middle;
+    }
+
+    @media (prefers-color-scheme: light) {
+      text {
+        fill: #000000;
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      text {
+        fill: #ffffff;
+      }
+    }
+  </style>
+  <text x="32" y="34">AR</text>
+</svg>
