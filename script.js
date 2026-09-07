@@ -590,7 +590,8 @@
   if (particleCanvas) {
     const ctx = particleCanvas.getContext('2d');
     const particles = [];
-    const PARTICLE_COUNT = 40;
+    const PARTICLE_COUNT = 120;
+    const mouse = { x: null, y: null, prevX: null, prevY: null, radius: 95 };
 
     function resizeCanvas() {
       particleCanvas.width = window.innerWidth;
@@ -601,10 +602,12 @@
       return {
         x: Math.random() * particleCanvas.width,
         y: Math.random() * particleCanvas.height,
-        r: Math.random() * 1.5 + 0.5,
-        dx: (Math.random() - 0.5) * 0.3,
-        dy: (Math.random() - 0.5) * 0.3,
-        opacity: Math.random() * 0.3 + 0.1
+        r: Math.random() * 2 + 0.5,
+        baseDx: (Math.random() - 0.5) * 0.3,
+        baseDy: (Math.random() - 0.5) * 0.3,
+        vx: 0,
+        vy: 0,
+        opacity: Math.random() * 0.35 + 0.1
       };
     }
 
@@ -615,14 +618,121 @@
       }
     }
 
+    window.addEventListener('mousemove', (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    }, { passive: true });
+
+    function clearMouse() {
+      mouse.x = null;
+      mouse.y = null;
+      mouse.prevX = null;
+      mouse.prevY = null;
+    }
+
+    window.addEventListener('mouseleave', clearMouse, { passive: true });
+    window.addEventListener('blur', clearMouse, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches && e.touches[0]) {
+        mouse.x = e.touches[0].clientX;
+        mouse.y = e.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', clearMouse, { passive: true });
+
+    // Closest point on line segment [(x1,y1) -> (x2,y2)] to point (px,py)
+    function getClosestPointOnSegment(px, py, x1, y1, x2, y2) {
+      const segDx = x2 - x1;
+      const segDy = y2 - y1;
+      const lenSq = segDx * segDx + segDy * segDy;
+      if (lenSq === 0) {
+        return { x: x1, y: y1 };
+      }
+      const t = Math.max(0, Math.min(1, ((px - x1) * segDx + (py - y1) * segDy) / lenSq));
+      return {
+        x: x1 + t * segDx,
+        y: y1 + t * segDy
+      };
+    }
+
     function drawParticles() {
       ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
       const w = particleCanvas.width;
       const h = particleCanvas.height;
+      const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+      const rgb = isLight ? '212, 163, 115' : '57, 255, 20';
+
+      // Velocity of cursor motion between animation frames
+      let mouseVx = 0;
+      let mouseVy = 0;
+      let mouseSpeed = 0;
+      const hasPrev = mouse.prevX !== null && mouse.prevY !== null;
+      const hasCurr = mouse.x !== null && mouse.y !== null;
+
+      if (hasCurr && hasPrev) {
+        mouseVx = mouse.x - mouse.prevX;
+        mouseVy = mouse.y - mouse.prevY;
+        mouseSpeed = Math.hypot(mouseVx, mouseVy);
+      }
+
+      // Dynamic interaction radius and response boost for fast swipes
+      const speedBoost = Math.min(2.5, 1 + mouseSpeed / 30);
+      const dynamicRadius = mouse.radius + Math.min(30, mouseSpeed * 0.5);
 
       particles.forEach((p) => {
-        p.x += p.dx;
-        p.y += p.dy;
+        let proximity = 0;
+
+        if (hasCurr) {
+          // Check distance to the swept line segment of cursor movement
+          let closestX = mouse.x;
+          let closestY = mouse.y;
+
+          if (hasPrev && mouseSpeed > 0) {
+            const closest = getClosestPointOnSegment(p.x, p.y, mouse.prevX, mouse.prevY, mouse.x, mouse.y);
+            closestX = closest.x;
+            closestY = closest.y;
+          }
+
+          const dx = p.x - closestX;
+          const dy = p.y - closestY;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist < dynamicRadius) {
+            proximity = 1 - dist / dynamicRadius;
+
+            // Outward repulsion from cursor trajectory
+            const normX = dist > 0.001 ? dx / dist : (Math.random() - 0.5);
+            const normY = dist > 0.001 ? dy / dist : (Math.random() - 0.5);
+            const repelForce = proximity * 0.35 * speedBoost;
+
+            p.vx += normX * repelForce;
+            p.vy += normY * repelForce;
+
+            // Subtle forward wake impulse in swipe direction
+            if (mouseSpeed > 2) {
+              const wakeForce = Math.min(1.2, mouseSpeed * 0.02) * proximity;
+              p.vx += (mouseVx / mouseSpeed) * wakeForce;
+              p.vy += (mouseVy / mouseSpeed) * wakeForce;
+            }
+          }
+        }
+
+        // Smooth damping
+        p.vx *= 0.92;
+        p.vy *= 0.92;
+
+        // Cap maximum speed for subtle feel
+        const speed = Math.hypot(p.vx, p.vy);
+        const maxSpeed = 2.8;
+        if (speed > maxSpeed) {
+          p.vx = (p.vx / speed) * maxSpeed;
+          p.vy = (p.vy / speed) * maxSpeed;
+        }
+
+        p.x += p.baseDx + p.vx;
+        p.y += p.baseDy + p.vy;
 
         // Wrap around edges
         if (p.x < 0) p.x = w;
@@ -631,12 +741,15 @@
         if (p.y > h) p.y = 0;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-        const rgb = isLight ? '212, 163, 115' : '57, 255, 20';
-        ctx.fillStyle = 'rgba(' + rgb + ', ' + p.opacity + ')';
+        ctx.arc(p.x, p.y, p.r + proximity * 0.6, 0, Math.PI * 2);
+        const currentOpacity = Math.min(0.7, p.opacity + proximity * 0.3);
+        ctx.fillStyle = 'rgba(' + rgb + ', ' + currentOpacity + ')';
         ctx.fill();
       });
+
+      // Track cursor position for next frame
+      mouse.prevX = mouse.x;
+      mouse.prevY = mouse.y;
 
       requestAnimationFrame(drawParticles);
     }
