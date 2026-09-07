@@ -25,13 +25,21 @@
   // ─── DYNAMIC DATA RENDERING ───
   const projContainer = document.getElementById('projects-grid-container');
   if (projContainer && window.siteData && window.siteData.projects) {
+    const publishedProjects = window.siteData.projects.filter(p => p.publish !== false);
+
+    // Auto-generate project IDs and placeholders based on their index
+    publishedProjects.forEach((p, i) => {
+      p.id = `PROJ_${String(i + 1).padStart(3, '0')}`;
+      p.placeholder = `[ IMG ]`;
+    });
+
     const isHomePage = document.getElementById('hero') !== null;
     let projectsHtml = '';
     
     // Filter projects for home page
     const projectsToRender = isHomePage 
-      ? window.siteData.projects.filter(p => p.showOnHome)
-      : window.siteData.projects;
+      ? publishedProjects.filter(p => p.showOnHome).slice(0, 2)
+      : publishedProjects;
 
     projectsToRender.forEach(p => {
       const imgHtml = p.image ? `<img src="${p.image}" alt="${p.title}" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; opacity:0.6; mix-blend-mode:luminosity;">` : `<span>${p.placeholder}</span>`;
@@ -68,7 +76,7 @@
         <a href="projects.html" class="view-all-tile reveal">
           <span class="view-all-icon">◈</span>
           <span class="view-all-label">&gt; ACCESS ALL PROJECTS_</span>
-          <span class="view-all-count">${window.siteData.projects.length} FILES INDEXED</span>
+          <span class="view-all-count">${publishedProjects.length} FILES INDEXED</span>
         </a>
        `;
     }
@@ -78,12 +86,19 @@
 
   const galContainer = document.getElementById('gallery-grid-container');
   if (galContainer && window.siteData && window.siteData.gallery) {
+    const publishedGallery = window.siteData.gallery.filter(g => g.publish !== false);
+
+    // Auto-generate gallery placeholders based on their index
+    publishedGallery.forEach((g, i) => {
+      g.placeholder = `[ PHOTO ${String(i + 1).padStart(2, '0')} ]`;
+    });
+
     const isHomePage = document.getElementById('hero') !== null;
     let galleryHtml = '';
     
     const galleryToRender = isHomePage 
-      ? window.siteData.gallery.slice(0, 8) // Limit to 8 on home
-      : window.siteData.gallery;
+      ? publishedGallery.slice(0, 2) // Limit to 2 on home
+      : publishedGallery;
 
     galleryToRender.forEach(g => {
       const imgHtml = g.image ? `<img src="${g.image}" alt="Gallery photo" style="width:100%; height:100%; object-fit:cover; position:absolute; top:0; left:0; filter:grayscale(100%);">` : `<span>${g.placeholder}</span>`;
@@ -105,7 +120,7 @@
         <a href="gallery.html" class="view-all-tile view-all-tile--gallery reveal">
           <span class="view-all-icon">◈</span>
           <span class="view-all-label">&gt; ACCESS FULL ARCHIVE_</span>
-          <span class="view-all-count">${window.siteData.gallery.length} PHOTOS INDEXED</span>
+          <span class="view-all-count">${publishedGallery.length} PHOTOS INDEXED</span>
         </a>
        `;
     }
