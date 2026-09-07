@@ -411,6 +411,8 @@ img {
   object-position: 50% 20%;
   display: block;
   background: var(--bg-card);
+  filter: saturate(0.35) contrast(1.05);
+  transition: filter var(--transition);
 }
 
 .hero-avatar-ring {
